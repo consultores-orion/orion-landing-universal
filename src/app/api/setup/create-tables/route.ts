@@ -30,7 +30,17 @@ function extractProjectRef(supabaseUrl: string): string {
   }
 }
 
-export async function POST() {
+export async function POST(request: Request) {
+  // Rate limiting: 10 requests/minute per IP
+  const ip = getClientIp(request)
+  const rl = rateLimit(`setup-create-tables:${ip}`, { windowMs: 60_000, max: 10 })
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: rateLimitHeaders(rl) },
+    )
+  }
+
   // Security: block if setup already complete
   try {
     const setupState = await getSetupState()

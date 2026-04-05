@@ -3,6 +3,7 @@ import { createServerClient } from '@/lib/supabase/server'
 import { getModuleDefinition } from '@/lib/modules/registry'
 import { BreadcrumbSetter } from '@/components/admin/modules/BreadcrumbSetter'
 import { ModuleSortableList, type ModuleData } from '@/components/admin/modules/ModuleSortableList'
+import { LayoutExportImport } from '@/components/admin/modules/LayoutExportImport'
 
 // ─────────────────────────────────────────────────────────────
 // Breadcrumb config
@@ -56,11 +57,14 @@ export default async function ModulesPage() {
       <BreadcrumbSetter items={BREADCRUMBS} />
 
       {/* Page header */}
-      <div className="mb-6">
-        <h1 className="text-foreground text-2xl font-bold tracking-tight">Gestionar Módulos</h1>
-        <p className="text-muted-foreground mt-1 text-sm">
-          Activa, desactiva y reordena los módulos de tu landing page
-        </p>
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-foreground text-2xl font-bold tracking-tight">Gestionar Módulos</h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Activa, desactiva y reordena los módulos de tu landing page
+          </p>
+        </div>
+        <LayoutExportImport />
       </div>
 
       {/* Tip banner */}

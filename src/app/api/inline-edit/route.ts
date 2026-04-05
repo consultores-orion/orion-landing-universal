@@ -15,6 +15,16 @@ const inlineEditSchema = z.object({
 // Performs a surgical single-field update on a module's content JSONB column.
 // Supports only one level of dot-notation (e.g. "title", not "items.0.text").
 export async function PUT(request: NextRequest) {
+  // Rate limiting: 30 requests/minute per IP (live editing can be frequent)
+  const ip = getClientIp(request)
+  const rl = rateLimit(`inline-edit:${ip}`, { windowMs: 60_000, max: 30 })
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: rateLimitHeaders(rl) },
+    )
+  }
+
   const supabase = await createServerClient()
 
   const {

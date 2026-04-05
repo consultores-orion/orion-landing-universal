@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import React, { useEffect, useRef, useCallback, type CSSProperties } from 'react'
 import { useEditorStore } from '@/stores/editor.store'
 import { useInlineEdit } from '@/hooks/useInlineEdit'
 
@@ -15,6 +15,7 @@ interface EditableTextProps {
   value: string
   as?: 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'div'
   className?: string
+  style?: CSSProperties
   placeholder?: string
 }
 
@@ -71,6 +72,7 @@ interface EditableCoreProps {
   initialValue: string
   placeholder: string
   className: string
+  style?: CSSProperties
   onInput: (text: string) => void
   onBlur: (text: string) => void
   onSaveNow: (text: string) => void
@@ -81,6 +83,7 @@ function EditableCore({
   initialValue,
   placeholder,
   className,
+  style,
   onInput,
   onBlur,
   onSaveNow,
@@ -143,6 +146,7 @@ function EditableCore({
     contentEditable: true as const,
     suppressContentEditableWarning: true,
     'data-placeholder': placeholder,
+    style,
     className: [
       className,
       'outline outline-2 outline-offset-2 outline-primary/40 rounded cursor-text',
@@ -175,6 +179,7 @@ export function EditableText({
   value,
   as: Tag = 'span',
   className = '',
+  style,
   placeholder = 'Escribe aquí...',
 }: EditableTextProps) {
   const isEditing = useEditorStore((s) => s.isEditing)
@@ -182,7 +187,11 @@ export function EditableText({
 
   if (!isEditing) {
     const StaticTag = Tag
-    return <StaticTag className={className}>{value}</StaticTag>
+    return (
+      <StaticTag className={className} style={style}>
+        {value}
+      </StaticTag>
+    )
   }
 
   return (
@@ -193,6 +202,7 @@ export function EditableText({
         initialValue={value}
         placeholder={placeholder}
         className={className}
+        style={style}
         onInput={debouncedSave}
         onBlur={(text) => {
           void save(text)

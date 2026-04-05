@@ -16,6 +16,7 @@ import type { ComponentType } from 'react'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
+import { EditableText } from '@/components/live-edit/EditableText'
 import type { ValuePropContent, ValuePropItem } from './value-prop.types'
 
 type IconComponent = ComponentType<LucideProps>
@@ -60,23 +61,39 @@ export default function ValuePropModule({
     <ModuleWrapper moduleId={moduleId} sectionKey="value_prop" styles={styles}>
       {/* Section header */}
       <div className="mb-12 text-center">
-        <h2
+        <EditableText
+          as="h2"
+          sectionKey="value_prop"
+          fieldPath="title"
+          lang={language}
+          value={t(content.title)}
           className="text-3xl font-bold tracking-tight md:text-4xl"
           style={{ color: 'var(--color-text-primary)' }}
-        >
-          {t(content.title)}
-        </h2>
+        />
         {content.subtitle && (
-          <p className="mt-4 text-lg" style={{ color: 'var(--color-text-secondary)' }}>
-            {t(content.subtitle)}
-          </p>
+          <EditableText
+            as="p"
+            sectionKey="value_prop"
+            fieldPath="subtitle"
+            lang={language}
+            value={t(content.subtitle)}
+            className="mt-4 text-lg"
+            style={{ color: 'var(--color-text-secondary)' }}
+          />
         )}
       </div>
 
       {/* Items grid */}
       <div className={`grid gap-8 ${gridClass}`}>
         {items.map((item, index) => (
-          <ValuePropCard key={index} item={item} layout={layout} t={t} />
+          <ValuePropCard
+            key={index}
+            item={item}
+            layout={layout}
+            t={t}
+            index={index}
+            language={language}
+          />
         ))}
       </div>
     </ModuleWrapper>
@@ -87,10 +104,14 @@ function ValuePropCard({
   item,
   layout,
   t,
+  index,
+  language,
 }: {
   item: ValuePropItem
   layout: string
   t: (field: Record<string, string> | string | null | undefined) => string
+  index: number
+  language: string
 }) {
   const IconComponent: IconComponent = ICON_MAP[item.icon] ?? DefaultIcon
   const isCards = layout === 'cards'
@@ -111,12 +132,24 @@ function ValuePropCard({
         >
           <IconComponent size={24} style={{ color: 'var(--color-primary)' }} />
         </div>
-        <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-          {t(item.title)}
-        </h3>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-          {t(item.description)}
-        </p>
+        <EditableText
+          as="h3"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.title`}
+          lang={language}
+          value={t(item.title)}
+          className="text-lg font-semibold"
+          style={{ color: 'var(--color-text-primary)' }}
+        />
+        <EditableText
+          as="p"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.description`}
+          lang={language}
+          value={t(item.description)}
+          className="text-sm leading-relaxed"
+          style={{ color: 'var(--color-text-secondary)' }}
+        />
       </div>
     )
   }
@@ -130,12 +163,24 @@ function ValuePropCard({
         >
           <IconComponent size={32} style={{ color: 'var(--color-primary)' }} />
         </div>
-        <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-          {t(item.title)}
-        </h3>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-          {t(item.description)}
-        </p>
+        <EditableText
+          as="h3"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.title`}
+          lang={language}
+          value={t(item.title)}
+          className="text-lg font-semibold"
+          style={{ color: 'var(--color-text-primary)' }}
+        />
+        <EditableText
+          as="p"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.description`}
+          lang={language}
+          value={t(item.description)}
+          className="text-sm leading-relaxed"
+          style={{ color: 'var(--color-text-secondary)' }}
+        />
       </div>
     )
   }
@@ -150,12 +195,24 @@ function ValuePropCard({
         <IconComponent size={18} style={{ color: 'var(--color-primary)' }} />
       </div>
       <div className="flex flex-col gap-1">
-        <h3 className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-          {t(item.title)}
-        </h3>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-          {t(item.description)}
-        </p>
+        <EditableText
+          as="h3"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.title`}
+          lang={language}
+          value={t(item.title)}
+          className="text-base font-semibold"
+          style={{ color: 'var(--color-text-primary)' }}
+        />
+        <EditableText
+          as="p"
+          sectionKey="value_prop"
+          fieldPath={`items.${index}.description`}
+          lang={language}
+          value={t(item.description)}
+          className="text-sm leading-relaxed"
+          style={{ color: 'var(--color-text-secondary)' }}
+        />
       </div>
     </div>
   )

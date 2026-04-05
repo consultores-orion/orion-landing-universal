@@ -31,7 +31,7 @@
 | 4         | Admin Panel                  | Completada  | 66/66 tareas (4b completada S6)   | Completada S6 |
 | 5         | Live Editing                 | En progreso | ~17/20 tareas (S7+S8)             | L (3-4 sem)   |
 | 6         | Polish y Produccion          | En progreso | ~8/42 tareas (S7)                 | L (3-5 sem)   |
-| 7         | Marketplace y Comunidad      | Pendiente   | 0/23 tareas                       | XL (continuo) |
+| 7         | Marketplace y Comunidad      | En progreso | 9/23 tareas (7.1-7.3 completadas) | XL (continuo) |
 | **Total** |                              |             | **~432/452 tareas**               |               |
 
 ---
@@ -433,181 +433,6 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
   - Navegacion por anclas a cada modulo visible
   - Selector de idioma
   - Hamburger menu en mobile
-    <<<<<<< ours
-- [ ] Crear `src/components/shared/ScrollToTop.tsx` — Boton de scroll al inicio
-
-### 3.5 Modulos — Hero (`hero`)
-
-- [ ] Crear `src/components/modules/hero/HeroModule.tsx` — Componente React
-- [ ] Crear `src/components/modules/hero/hero.schema.ts` — Schema Zod de campos
-- [ ] Crear `src/components/modules/hero/hero.seed.ts` — Contenido por defecto (es/en)
-- [ ] Crear `src/components/modules/hero/hero.types.ts` — Interfaces TypeScript
-- [ ] Crear `src/components/modules/hero/index.ts` — Barrel export
-- [ ] Implementar: titulo, subtitulo, CTA primario, CTA secundario, imagen/video de fondo, overlay
-
-### 3.6 Modulos — Propuesta de Valor (`value_prop`)
-
-- [ ] Crear `src/components/modules/value-prop/ValuePropModule.tsx`
-- [ ] Crear `src/components/modules/value-prop/value-prop.schema.ts`
-- [ ] Crear `src/components/modules/value-prop/value-prop.seed.ts`
-- [ ] Crear `src/components/modules/value-prop/value-prop.types.ts`
-- [ ] Crear `src/components/modules/value-prop/index.ts`
-- [ ] Implementar: grid 3-6 beneficios con icono, titulo y descripcion
-
-### 3.7 Modulos — Como Funciona (`how_it_works`)
-
-- [ ] Crear `src/components/modules/how-it-works/HowItWorksModule.tsx`
-- [ ] Crear `src/components/modules/how-it-works/how-it-works.schema.ts`
-- [ ] Crear `src/components/modules/how-it-works/how-it-works.seed.ts`
-- [ ] Crear `src/components/modules/how-it-works/how-it-works.types.ts`
-- [ ] Crear `src/components/modules/how-it-works/index.ts`
-- [ ] Implementar: timeline/stepper 3-5 pasos con icono y descripcion
-
-### 3.8 Modulos — Prueba Social (`social_proof`)
-
-- [ ] Crear `src/components/modules/social-proof/SocialProofModule.tsx`
-- [ ] Crear `src/components/modules/social-proof/social-proof.schema.ts`
-- [ ] Crear `src/components/modules/social-proof/social-proof.seed.ts`
-- [ ] Crear `src/components/modules/social-proof/social-proof.types.ts`
-- [ ] Crear `src/components/modules/social-proof/index.ts`
-- [ ] Implementar: carrusel de testimonios con avatar, nombre, cargo, cita
-
-### 3.9 Modulos — Logos de Clientes (`client_logos`)
-
-- [ ] Crear `src/components/modules/client-logos/ClientLogosModule.tsx`
-- [ ] Crear `src/components/modules/client-logos/client-logos.schema.ts`
-- [ ] Crear `src/components/modules/client-logos/client-logos.seed.ts`
-- [ ] Crear `src/components/modules/client-logos/client-logos.types.ts`
-- [ ] Crear `src/components/modules/client-logos/index.ts`
-- [ ] Implementar: grid o carrusel de logos con animacion sutil (infinite scroll)
-
-### 3.10 Modulos — Formulario de Contacto (`offer_form`)
-
-- [ ] Crear `src/components/modules/offer-form/OfferFormModule.tsx` (Client Component)
-- [ ] Crear `src/components/modules/offer-form/offer-form.schema.ts`
-- [ ] Crear `src/components/modules/offer-form/offer-form.seed.ts`
-- [ ] Crear `src/components/modules/offer-form/offer-form.types.ts`
-- [ ] Crear `src/components/modules/offer-form/index.ts`
-- [ ] Implementar: formulario configurable con campos dinamicos, envio a Supabase (tabla leads)
-- [ ] Crear `src/app/api/leads/route.ts` — POST para captura de leads
-
-### 3.11 Modulos — Preguntas Frecuentes (`faq`)
-
-- [ ] Crear `src/components/modules/faq/FaqModule.tsx`
-- [ ] Crear `src/components/modules/faq/faq.schema.ts`
-- [ ] Crear `src/components/modules/faq/faq.seed.ts`
-- [ ] Crear `src/components/modules/faq/faq.types.ts`
-- [ ] Crear `src/components/modules/faq/index.ts`
-- [ ] Implementar: acordeon con preguntas/respuestas, JSON-LD schema para SEO
-
-### 3.12 Modulos — CTA Final (`final_cta`)
-
-- [ ] Crear `src/components/modules/final-cta/FinalCtaModule.tsx`
-- [ ] Crear `src/components/modules/final-cta/final-cta.schema.ts`
-- [ ] Crear `src/components/modules/final-cta/final-cta.seed.ts`
-- [ ] Crear `src/components/modules/final-cta/final-cta.types.ts`
-- [ ] Crear `src/components/modules/final-cta/index.ts`
-- [ ] Implementar: bloque con titulo, texto descriptivo y boton CTA prominente
-
-### 3.13 Modulos — Footer (`footer`)
-
-- [ ] Crear `src/components/modules/footer/FooterModule.tsx`
-- [ ] Crear `src/components/modules/footer/footer.schema.ts`
-- [ ] Crear `src/components/modules/footer/footer.seed.ts`
-- [ ] Crear `src/components/modules/footer/footer.types.ts`
-- [ ] Crear `src/components/modules/footer/index.ts`
-- [ ] Implementar: links en columnas, redes sociales (desde site_config), copyright, legal
-
-### 3.14 Modulos — Estadisticas (`stats`)
-
-- [ ] Crear `src/components/modules/stats/StatsModule.tsx` (Client Component para animacion)
-- [ ] Crear `src/components/modules/stats/stats.schema.ts`
-- [ ] Crear `src/components/modules/stats/stats.seed.ts`
-- [ ] Crear `src/components/modules/stats/stats.types.ts`
-- [ ] Crear `src/components/modules/stats/index.ts`
-- [ ] Implementar: contadores animados con efecto de incremento (IntersectionObserver trigger)
-
-### 3.15 Modulos — Precios (`pricing`)
-
-- [ ] Crear `src/components/modules/pricing/PricingModule.tsx` (Client Component para toggle)
-- [ ] Crear `src/components/modules/pricing/pricing.schema.ts`
-- [ ] Crear `src/components/modules/pricing/pricing.seed.ts`
-- [ ] Crear `src/components/modules/pricing/pricing.types.ts`
-- [ ] Crear `src/components/modules/pricing/index.ts`
-- [ ] Implementar: 2-4 planes, toggle mensual/anual, feature list, CTA por plan, plan destacado
-
-### 3.16 Modulos — Video (`video`)
-
-- [ ] Crear `src/components/modules/video/VideoModule.tsx` (Client Component)
-- [ ] Crear `src/components/modules/video/video.schema.ts`
-- [ ] Crear `src/components/modules/video/video.seed.ts`
-- [ ] Crear `src/components/modules/video/video.types.ts`
-- [ ] Crear `src/components/modules/video/index.ts`
-- [ ] Implementar: player embebido responsivo (YouTube/Vimeo/archivo), poster image, lazy load
-
-### 3.17 Modulos — Equipo (`team`)
-
-- [ ] Crear `src/components/modules/team/TeamModule.tsx`
-- [ ] Crear `src/components/modules/team/team.schema.ts`
-- [ ] Crear `src/components/modules/team/team.seed.ts`
-- [ ] Crear `src/components/modules/team/team.types.ts`
-- [ ] Crear `src/components/modules/team/index.ts`
-- [ ] Implementar: grid de miembros con foto, nombre, cargo, links a redes sociales
-
-### 3.18 Modulos — Galeria (`gallery`)
-
-- [ ] Crear `src/components/modules/gallery/GalleryModule.tsx` (Client Component para lightbox)
-- [ ] Crear `src/components/modules/gallery/gallery.schema.ts`
-- [ ] Crear `src/components/modules/gallery/gallery.seed.ts`
-- [ ] Crear `src/components/modules/gallery/gallery.types.ts`
-- [ ] Crear `src/components/modules/gallery/index.ts`
-- [ ] Implementar: grid masonry con lightbox, categorias opcionales, lazy load
-
-### 3.19 Modulos — Grid de Caracteristicas (`features_grid`)
-
-- [ ] Crear `src/components/modules/features-grid/FeaturesGridModule.tsx`
-- [ ] Crear `src/components/modules/features-grid/features-grid.schema.ts`
-- [ ] Crear `src/components/modules/features-grid/features-grid.seed.ts`
-- [ ] Crear `src/components/modules/features-grid/features-grid.types.ts`
-- [ ] Crear `src/components/modules/features-grid/index.ts`
-- [ ] Implementar: grid responsivo 4-12 features con icono, titulo, descripcion
-
-### 3.20 Modulos — Cuenta Regresiva (`countdown`)
-
-- [ ] Crear `src/components/modules/countdown/CountdownModule.tsx` (Client Component)
-- [ ] Crear `src/components/modules/countdown/countdown.schema.ts`
-- [ ] Crear `src/components/modules/countdown/countdown.seed.ts`
-- [ ] Crear `src/components/modules/countdown/countdown.types.ts`
-- [ ] Crear `src/components/modules/countdown/index.ts`
-- [ ] Implementar: temporizador con fecha objetivo configurable, accion al llegar a cero
-
-### 3.21 Modulos — Tabla Comparativa (`comparison`)
-
-- [ ] Crear `src/components/modules/comparison/ComparisonModule.tsx`
-- [ ] Crear `src/components/modules/comparison/comparison.schema.ts`
-- [ ] Crear `src/components/modules/comparison/comparison.seed.ts`
-- [ ] Crear `src/components/modules/comparison/comparison.types.ts`
-- [ ] Crear `src/components/modules/comparison/index.ts`
-- [ ] Implementar: tabla de comparacion con columnas configurables, checkmarks, responsive scroll
-
-### 3.22 Modulos — Newsletter (`newsletter`)
-
-- [ ] Crear `src/components/modules/newsletter/NewsletterModule.tsx` (Client Component)
-- [ ] Crear `src/components/modules/newsletter/newsletter.schema.ts`
-- [ ] Crear `src/components/modules/newsletter/newsletter.seed.ts`
-- [ ] Crear `src/components/modules/newsletter/newsletter.types.ts`
-- [ ] Crear `src/components/modules/newsletter/index.ts`
-- [ ] Implementar: formulario de email, validacion, envio a tabla leads (source_module: newsletter)
-
-### 3.23 Modulos — Mapa/Ubicacion (`map_location`)
-
-- [ ] Crear `src/components/modules/map-location/MapLocationModule.tsx` (Client Component)
-- [ ] Crear `src/components/modules/map-location/map-location.schema.ts`
-- [ ] Crear `src/components/modules/map-location/map-location.seed.ts`
-- [ ] Crear `src/components/modules/map-location/map-location.types.ts`
-- [ ] Crear `src/components/modules/map-location/index.ts`
-- [ ] # Implementar: mapa embebido (Google Maps iframe o alternativa), direccion, horarios
-- [x] Crear `src/components/shared/ScrollToTop.tsx` — Boton de scroll al inicio
 
 ### 3.5 Modulos — Hero (`hero`) ✅
 
@@ -780,7 +605,6 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 - [x] Crear `src/components/modules/map-location/map-location.types.ts`
 - [x] Crear `src/components/modules/map-location/index.ts`
 - [x] Implementar: mapa embebido (Google Maps iframe o alternativa), direccion, horarios
-  > > > > > > > theirs
 
 ### 3.24 Registro de Modulos en Registry
 
@@ -1029,7 +853,7 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 - [x] Actualizacion optimista en EditableText y EditableImage
 - [x] Rollback automatico si el guardado falla (EditableImage)
 - [x] Revalidacion de cache Next.js (revalidatePath('/')) en inline-edit API
-- [ ] Verificar que los cambios se reflejan sin recarga en modulos reales (pendiente integracion por modulo)
+- [x] Verificar que los cambios se reflejan sin recarga en modulos reales (EditableText integrado en hero, value_prop, how_it_works — S8)
 
 ### 5.5 Drag-and-Drop de Modulos en Vivo
 
@@ -1042,13 +866,14 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
   - Mover arriba/abajo, ocultar modulo, link a edicion avanzada en admin
 - [x] Crear `src/components/live-edit/SortablePageWrapper.tsx` — DndContext + SortableContext container
 - [x] Crear `src/components/live-edit/index.ts` — Barrel export de todos los componentes
-- [ ] Integrar SortablePageWrapper en `src/app/(public)/page.tsx` (pendiente para S8)
+- [x] Crear `src/components/live-edit/SortableModuleItem.tsx` — Client Component adapter con handlers API internos (S8)
+- [x] Integrar SortablePageWrapper en `src/app/(public)/page.tsx` con SortableModuleItem (S8)
 
 ### 5.6 Seguridad del Modo Edicion
 
 - [x] Modo edicion invisible para visitantes (EditModeToggle renders null si isAdmin=false)
 - [x] Auth check en `/api/inline-edit` (401 si no hay sesion)
-- [ ] Rate limiting en endpoints criticos (pendiente S8)
+- [x] Rate limiting en endpoints criticos (leads: 5/min, inline-edit: 30/min — completado S8)
 - [ ] Log de cambios via edicion inline (pendiente S8)
 
 ---
@@ -1080,8 +905,8 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 ### 6.3 Security Hardening
 
 - [ ] Revision de todas las politicas RLS en Supabase
-- [ ] Rate limiting en endpoints criticos (login, leads, setup)
-- [ ] Headers de seguridad HTTP verificados (CSP, X-Frame-Options, HSTS)
+- [x] Rate limiting en endpoints criticos (login, leads, setup)
+- [x] Headers de seguridad HTTP verificados (CSP, X-Frame-Options, HSTS)
 - [x] Validacion server-side con Zod en todos los API routes (ya implementado en S3-S6 + inline-edit en S7)
 - [ ] `pnpm audit` limpio (zero vulnerabilidades conocidas)
 - [ ] Revision de variables de entorno y secretos (nunca en cliente)
@@ -1108,16 +933,16 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 
 ### 6.5 Guias de Deploy
 
-- [ ] Guia de deploy en Vercel (paso a paso con variables de entorno)
-- [ ] Guia de deploy con Docker (`docker compose up`)
-- [ ] Guia de deploy en Netlify (con @netlify/next)
-- [ ] Guia generica para VPS (nginx + PM2 + Node.js)
+- [x] Guia de deploy en Vercel (paso a paso con variables de entorno) — `docs/deploy/VERCEL.md`
+- [x] Guia de deploy con Docker (`docker compose up`) — `docs/deploy/DOCKER.md`
+- [x] Guia de deploy en Netlify (con @netlify/next) — `docs/deploy/NETLIFY.md`
+- [x] Guia generica para VPS (nginx + PM2 + Node.js) — `docs/deploy/VPS.md`
 - [x] Crear `src/app/api/health/route.ts` — Health check endpoint (version, env, supabase status)
 
 ### 6.6 Documentacion Final
 
-- [ ] `README.md` completo y profesional (badges, screenshots, quick start)
-- [ ] `CHANGELOG.md` con historial de cambios
+- [x] `README.md` completo y profesional (badges, screenshots, quick start)
+- [x] `CHANGELOG.md` con historial de cambios
 - [ ] Documentacion de API interna (para desarrolladores que extiendan)
 - [ ] Guia de creacion de modulos personalizados
 - [ ] Guia de creacion de temas personalizados
@@ -1126,27 +951,27 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 
 ## Fase 7 — Marketplace y Comunidad
 
-> **Estado**: Pendiente | **Dependencias**: Fase 6 | **Estimacion**: Continuo
+> **Estado**: En progreso | **Dependencias**: Fase 6 | **Estimacion**: Continuo
 > **Criterio de exito**: Primer tema comunitario publicado, formato de paquete estable.
 
 ### 7.1 Export/Import de Paletas
 
-- [ ] Crear endpoint de exportacion de paleta como JSON
-- [ ] Crear UI de importacion de paleta desde archivo JSON
-- [ ] Validacion de formato de paleta importada con Zod
+- [x] Crear endpoint de exportacion de paleta como JSON (`GET /api/design/palette/export`)
+- [x] Crear UI de importacion de paleta desde archivo JSON (botones en tab Paleta de DesignEditor)
+- [x] Validacion de formato de paleta importada con Zod (`POST /api/design/palette/import`)
 
 ### 7.2 Export/Import de Temas
 
-- [ ] Definir formato estandarizado de paquete de tema (JSON schema)
-- [ ] Crear mecanismo de exportacion de tema completo (paleta + tipografia + spacing)
-- [ ] Crear mecanismo de importacion de tema desde archivo
+- [x] Definir formato estandarizado de paquete de tema (JSON: version, palette, typography, spacing, borderRadius, customColors, createdAt)
+- [x] Crear mecanismo de exportacion de tema completo (paleta + tipografia + spacing) (`GET /api/design/theme/export`)
+- [x] Crear mecanismo de importacion de tema desde archivo (`POST /api/design/theme/import`)
 - [ ] Preview de tema antes de aplicar
-- [ ] Validacion de integridad del paquete
+- [x] Validacion de integridad del paquete (Zod schema completo)
 
 ### 7.3 Export/Import de Layouts
 
-- [ ] Exportar configuracion de layout (orden de modulos, visibilidad, contenido)
-- [ ] Importar layout desde archivo
+- [x] Exportar configuracion de layout (orden de modulos, visibilidad) (`GET /api/modules/export`)
+- [x] Importar layout desde archivo (`POST /api/modules/import`)
 - [ ] Merge inteligente con contenido existente
 
 ### 7.4 Plugin System Foundation
@@ -1171,17 +996,14 @@ Fase 0 (Docs) ──> Fase 1 (Foundation)
 
 ## Registro de Cambios
 
-| Fecha      | Descripcion                                            | Autor                      |
-| ---------- | ------------------------------------------------------ | -------------------------- |
-| 2026-04-05 | Creacion inicial del tracker con 324 tareas en 8 fases | Luis E. Gutierrez / Claude |
-
-<<<<<<< ours
-| | | |
-| | | |
-=======
-| 2026-04-05 | S7: Live Editing completo (5.1-5.5), Testing base (Vitest 32 tests + Playwright), Health check API, ImageField + RichTextField | Luis E. Gutierrez / Claude |
-
-> > > > > > > theirs
+| Fecha      | Descripcion                                                                                                                                                                | Autor                      |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| 2026-04-05 | Creacion inicial del tracker con 324 tareas en 8 fases                                                                                                                     | Luis E. Gutierrez / Claude |
+| 2026-04-05 | S7: Live Editing completo (5.1-5.5), Testing base (Vitest 32 tests + Playwright), Health check API, ImageField + RichTextField                                             | Luis E. Gutierrez / Claude |
+| 2026-04-05 | S8: Rate limiting en leads/inline-edit/setup, security headers en next.config.ts (CSP, HSTS prod-only, X-XSS-Protection, Referrer-Policy)                                  | Luis E. Gutierrez / Claude |
+| 2026-04-05 | S8: README.md profesional (badges, features, quick start, modulos, stack), CHANGELOG.md, 4 guias de deploy (Vercel/Docker/Netlify/VPS), INDEX.md actualizado               | Luis E. Gutierrez / Claude |
+| 2026-04-05 | S8: SortablePageWrapper integrado en page.tsx, SortableModuleItem creado, EditableText en hero/value_prop/how_it_works, conflictos git resueltos en DEVELOPMENT-TRACKER.md | Luis E. Gutierrez / Claude |
+| 2026-04-05 | S8: Phase 7 — Export/Import de paletas, temas y layouts (7.1-7.3 completo)                                                                                                 | Luis E. Gutierrez / Claude |
 
 ---
 

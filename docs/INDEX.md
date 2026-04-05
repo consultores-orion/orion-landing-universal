@@ -49,6 +49,15 @@ Plantilla de landing page open-source, auto-hospedada, con panel de administraci
 | [THEME-SYSTEM](specs/THEME-SYSTEM.md)   | Sistema de temas — paletas, CSS variables, Tailwind 4, marketplace-ready                   |
 | [INTEGRATIONS](specs/INTEGRATIONS.md)   | Integraciones — Analytics, Meta Pixel, WhatsApp, Calendly, SMTP, scripts                   |
 
+### Guías de Deploy
+
+| Documento                    | Descripción                                                                        |
+| ---------------------------- | ---------------------------------------------------------------------------------- |
+| [VERCEL](deploy/VERCEL.md)   | Deploy en Vercel — fork, variables de entorno, wizard post-deploy, troubleshooting |
+| [DOCKER](deploy/DOCKER.md)   | Deploy con Docker — docker compose, producción con nginx + certbot                 |
+| [NETLIFY](deploy/NETLIFY.md) | Deploy en Netlify — plugin Next.js, limitaciones conocidas, troubleshooting        |
+| [VPS](deploy/VPS.md)         | Deploy en VPS genérico — Node.js 20, PM2, nginx, SSL con Let's Encrypt             |
+
 ### Gobernanza
 
 | Documento                                        | Descripci&oacute;n                                                                             |

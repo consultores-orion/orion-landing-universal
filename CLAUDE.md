@@ -85,10 +85,19 @@ Cada m&oacute;dulo tiene: `{Name}Module.tsx` (componente), `{name}.schema.ts` (c
 
 ## Estado Actual
 
-**Sesi&oacute;n completada**: S7 (Fase 5 — Live Editing infraestructura + Fase 6 Testing base)
-**Pr&oacute;xima sesi&oacute;n**: S8 (Integraci&oacute;n Live Edit en m&oacute;dulos + Fase 6 Polish: Lighthouse, a11y, security + Fase 7 Marketplace)
-**Tareas totales**: ~500 (~470 completadas, ~30 pendientes)
+**Sesi&oacute;n completada**: S8 (Fase 5 integraci&oacute;n m&oacute;dulos + Fase 6 Polish security/docs + Fase 7 Export/Import)
+**Pr&oacute;xima sesi&oacute;n**: S9 (Fase 6 Polish: Lighthouse audit, axe-core a11y, RTL component tests, E2E Playwright completos)
+**Tareas totales**: ~500 (~495 completadas, ~5 pendientes)
 **&Uacute;ltima actualizaci&oacute;n**: 2026-04-05
+
+## Hallazgos clave S8 (2026-04-05)
+
+- **SortableModuleItem** creado: `src/components/live-edit/SortableModuleItem.tsx` — Client Component que encapsula `SortableModuleWrapper` con handlers API internos (move up/down, toggle visibility). Usar este en `page.tsx` en lugar de pasar callbacks desde Server Component.
+- **EditableText tiene prop `style?`**: Se agreg&oacute; `style?: CSSProperties` al componente para preservar estilos inline dinámicos (colores de hero con fondo). Leer el componente antes de integrar en otros m&oacute;dulos.
+- **display_name en page_modules es JSONB** (`Record<string,string>`), no string. `page.tsx` usa helper `resolveDisplayName` para extraer el string.
+- **Rate limiting in-memory**: `src/lib/security/rate-limit.ts` — funciona en Docker/VPS (single-instance). En Vercel serverless, cada función tiene memoria separada — limitación conocida.
+- **Phase 7 bases**: Export/import de paletas, temas y layouts implementado. API routes en `/api/design/palette/`, `/api/design/theme/export|import`, `/api/modules/export|import`.
+- **pnpm type-check**: 0 errores al cierre de S8.
 
 ## Reglas de Mantenimiento de Documentaci&oacute;n (OBLIGATORIO)
 

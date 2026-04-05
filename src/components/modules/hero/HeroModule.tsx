@@ -1,6 +1,7 @@
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
+import { EditableText } from '@/components/live-edit/EditableText'
 import type { HeroContent, HeroButton } from './hero.types'
 
 export default function HeroModule({
@@ -64,37 +65,47 @@ export default function HeroModule({
           } ${layout === 'split' ? 'md:max-w-xl' : 'mx-auto max-w-4xl'}`}
         >
           {/* Title */}
-          <h1
+          <EditableText
+            as="h1"
+            sectionKey="hero"
+            fieldPath="title"
+            lang={language}
+            value={t(content.title)}
             className="text-5xl leading-tight font-bold tracking-tight md:text-7xl"
-            style={{
-              color: hasBackground ? '#ffffff' : 'var(--color-text-primary)',
-            }}
-          >
-            {t(content.title)}
-          </h1>
+            style={{ color: hasBackground ? '#ffffff' : 'var(--color-text-primary)' }}
+            placeholder="Título principal"
+          />
 
           {/* Subtitle */}
           {content.subtitle && (
-            <p
+            <EditableText
+              as="p"
+              sectionKey="hero"
+              fieldPath="subtitle"
+              lang={language}
+              value={t(content.subtitle)}
               className="text-xl md:text-2xl"
               style={{
                 color: hasBackground ? 'rgba(255,255,255,0.85)' : 'var(--color-text-secondary)',
               }}
-            >
-              {t(content.subtitle)}
-            </p>
+              placeholder="Subtítulo"
+            />
           )}
 
           {/* Description */}
           {content.description && (
-            <p
+            <EditableText
+              as="p"
+              sectionKey="hero"
+              fieldPath="description"
+              lang={language}
+              value={t(content.description)}
               className="max-w-2xl text-base"
               style={{
                 color: hasBackground ? 'rgba(255,255,255,0.75)' : 'var(--color-text-secondary)',
               }}
-            >
-              {t(content.description)}
-            </p>
+              placeholder="Descripción"
+            />
           )}
 
           {/* Buttons */}

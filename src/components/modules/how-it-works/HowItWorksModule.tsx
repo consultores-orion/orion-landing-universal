@@ -12,6 +12,7 @@ import type { ComponentType } from 'react'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
+import { EditableText } from '@/components/live-edit/EditableText'
 import type { HowItWorksContent, HowItWorksStep } from './how-it-works.types'
 
 type IconComponent = ComponentType<LucideProps>
@@ -43,23 +44,32 @@ export default function HowItWorksModule({
     <ModuleWrapper moduleId={moduleId} sectionKey="how_it_works" styles={styles}>
       {/* Section header */}
       <div className="mb-12 text-center">
-        <h2
+        <EditableText
+          as="h2"
+          sectionKey="how_it_works"
+          fieldPath="title"
+          lang={language}
+          value={t(content.title)}
           className="text-3xl font-bold tracking-tight md:text-4xl"
           style={{ color: 'var(--color-text-primary)' }}
-        >
-          {t(content.title)}
-        </h2>
+        />
         {content.subtitle && (
-          <p className="mt-4 text-lg" style={{ color: 'var(--color-text-secondary)' }}>
-            {t(content.subtitle)}
-          </p>
+          <EditableText
+            as="p"
+            sectionKey="how_it_works"
+            fieldPath="subtitle"
+            lang={language}
+            value={t(content.subtitle)}
+            className="mt-4 text-lg"
+            style={{ color: 'var(--color-text-secondary)' }}
+          />
         )}
       </div>
 
       {/* Steps */}
-      {layout === 'horizontal' && <HorizontalSteps steps={steps} t={t} />}
-      {layout === 'vertical' && <VerticalSteps steps={steps} t={t} />}
-      {layout === 'alternating' && <AlternatingSteps steps={steps} t={t} />}
+      {layout === 'horizontal' && <HorizontalSteps steps={steps} t={t} language={language} />}
+      {layout === 'vertical' && <VerticalSteps steps={steps} t={t} language={language} />}
+      {layout === 'alternating' && <AlternatingSteps steps={steps} t={t} language={language} />}
     </ModuleWrapper>
   )
 }
@@ -74,7 +84,15 @@ function StepIcon({ iconName, size = 20 }: { iconName?: string; size?: number })
   return <IconComponent size={size} style={{ color: 'var(--color-primary-foreground)' }} />
 }
 
-function HorizontalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
+function HorizontalSteps({
+  steps,
+  t,
+  language,
+}: {
+  steps: HowItWorksStep[]
+  t: TFn
+  language: string
+}) {
   return (
     <div className="relative">
       {/* Connector line (desktop only) */}
@@ -126,15 +144,24 @@ function HorizontalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
             )}
 
             <div className="flex flex-col gap-2">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-                {t(step.title)}
-              </h3>
-              <p
+              <EditableText
+                as="h3"
+                sectionKey="how_it_works"
+                fieldPath={`steps.${index}.title`}
+                lang={language}
+                value={t(step.title)}
+                className="text-lg font-semibold"
+                style={{ color: 'var(--color-text-primary)' }}
+              />
+              <EditableText
+                as="p"
+                sectionKey="how_it_works"
+                fieldPath={`steps.${index}.description`}
+                lang={language}
+                value={t(step.description)}
                 className="text-sm leading-relaxed"
                 style={{ color: 'var(--color-text-secondary)' }}
-              >
-                {t(step.description)}
-              </p>
+              />
             </div>
 
             {/* Arrow between steps (mobile) */}
@@ -162,7 +189,15 @@ function HorizontalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
   )
 }
 
-function VerticalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
+function VerticalSteps({
+  steps,
+  t,
+  language,
+}: {
+  steps: HowItWorksStep[]
+  t: TFn
+  language: string
+}) {
   return (
     <div className="flex flex-col gap-0">
       {steps.map((step, index) => (
@@ -192,15 +227,24 @@ function VerticalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
 
           {/* Content */}
           <div className="pt-1 pb-8">
-            <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-              {t(step.title)}
-            </h3>
-            <p
+            <EditableText
+              as="h3"
+              sectionKey="how_it_works"
+              fieldPath={`steps.${index}.title`}
+              lang={language}
+              value={t(step.title)}
+              className="text-lg font-semibold"
+              style={{ color: 'var(--color-text-primary)' }}
+            />
+            <EditableText
+              as="p"
+              sectionKey="how_it_works"
+              fieldPath={`steps.${index}.description`}
+              lang={language}
+              value={t(step.description)}
               className="mt-1 text-sm leading-relaxed"
               style={{ color: 'var(--color-text-secondary)' }}
-            >
-              {t(step.description)}
-            </p>
+            />
           </div>
         </div>
       ))}
@@ -208,7 +252,15 @@ function VerticalSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
   )
 }
 
-function AlternatingSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
+function AlternatingSteps({
+  steps,
+  t,
+  language,
+}: {
+  steps: HowItWorksStep[]
+  t: TFn
+  language: string
+}) {
   return (
     <div className="flex flex-col gap-12">
       {steps.map((step, index) => {
@@ -247,15 +299,24 @@ function AlternatingSteps({ steps, t }: { steps: HowItWorksStep[]; t: TFn }) {
                   : 'items-start text-left md:items-end md:text-right'
               }`}
             >
-              <h3 className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
-                {t(step.title)}
-              </h3>
-              <p
+              <EditableText
+                as="h3"
+                sectionKey="how_it_works"
+                fieldPath={`steps.${index}.title`}
+                lang={language}
+                value={t(step.title)}
+                className="text-2xl font-bold"
+                style={{ color: 'var(--color-text-primary)' }}
+              />
+              <EditableText
+                as="p"
+                sectionKey="how_it_works"
+                fieldPath={`steps.${index}.description`}
+                lang={language}
+                value={t(step.description)}
                 className="text-base leading-relaxed"
                 style={{ color: 'var(--color-text-secondary)' }}
-              >
-                {t(step.description)}
-              </p>
+              />
             </div>
           </div>
         )

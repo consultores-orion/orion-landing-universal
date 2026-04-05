@@ -9,6 +9,8 @@ import type { ThemeConfig, ColorPalette } from '@/lib/themes/types'
 import { PaletteSelector } from './PaletteSelector'
 import { TypographyEditor } from './TypographyEditor'
 import { SpacingEditor } from './SpacingEditor'
+import { PaletteExportImport } from './PaletteExportImport'
+import { ThemeExportImport } from './ThemeExportImport'
 
 // ─────────────────────────────────────────────
 // Types
@@ -157,13 +159,20 @@ export function DesignEditor({ themeConfig, palettes }: DesignEditorProps) {
       <div className="border-border bg-card rounded-lg border p-6 shadow-sm">
         {activeTab === 'palette' && (
           <div className="space-y-4">
-            <div>
-              <h3 className="text-foreground text-sm font-semibold">
-                Selecciona una paleta de colores
-              </h3>
-              <p className="text-muted-foreground mt-1 text-xs">
-                Define la identidad visual de tu landing page. Puedes personalizarla después.
-              </p>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="text-foreground text-sm font-semibold">
+                  Selecciona una paleta de colores
+                </h3>
+                <p className="text-muted-foreground mt-1 text-xs">
+                  Define la identidad visual de tu landing page. Puedes personalizarla después.
+                </p>
+              </div>
+              <PaletteExportImport
+                onImportSuccess={() => {
+                  toast.info('Paleta importada. Recarga la página para verla en la lista.')
+                }}
+              />
             </div>
             <PaletteSelector
               palettes={palettes}
@@ -207,18 +216,25 @@ export function DesignEditor({ themeConfig, palettes }: DesignEditorProps) {
       </div>
 
       {/* Save bar */}
-      <div className="border-border bg-muted/30 flex items-center justify-end gap-3 rounded-lg border px-4 py-3">
-        <p className="text-muted-foreground text-xs">
-          Los cambios se aplican inmediatamente en la landing page pública.
-        </p>
-        <Button onClick={handleSave} disabled={isSaving} size="sm">
-          {isSaving ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <Save className="mr-2 h-4 w-4" />
-          )}
-          {isSaving ? 'Guardando...' : 'Guardar cambios'}
-        </Button>
+      <div className="border-border bg-muted/30 flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3">
+        <ThemeExportImport
+          onImportSuccess={() => {
+            toast.info('Tema importado. Recarga la página para ver los cambios reflejados.')
+          }}
+        />
+        <div className="flex items-center gap-3">
+          <p className="text-muted-foreground text-xs">
+            Los cambios se aplican inmediatamente en la landing page pública.
+          </p>
+          <Button onClick={handleSave} disabled={isSaving} size="sm">
+            {isSaving ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="mr-2 h-4 w-4" />
+            )}
+            {isSaving ? 'Guardando...' : 'Guardar cambios'}
+          </Button>
+        </div>
       </div>
     </div>
   )

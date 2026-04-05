@@ -4,8 +4,19 @@ import postgres from 'postgres'
 
 import { connectSchema } from '@/lib/setup/validation'
 import { getSetupState } from '@/lib/setup/state'
+import { rateLimit, getClientIp, rateLimitHeaders } from '@/lib/security/rate-limit'
 
 export async function POST(request: Request) {
+  // Rate limiting: 10 requests/minute per IP
+  const ip = getClientIp(request)
+  const rl = rateLimit(`setup-test-connection:${ip}`, { windowMs: 60_000, max: 10 })
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: rateLimitHeaders(rl) },
+    )
+  }
+
   // Security: block if setup already complete
   try {
     const setupState = await getSetupState()
