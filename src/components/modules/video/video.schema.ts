@@ -1,0 +1,92 @@
+import type { ModuleSchemaDef } from '@/lib/modules/types'
+
+export const videoSchema: ModuleSchemaDef = {
+  key: 'video',
+  name: { es: 'Video', en: 'Video' },
+  description: {
+    es: 'Video embebido de YouTube, Vimeo o archivo propio con reproductor responsivo.',
+    en: 'Embedded YouTube, Vimeo or self-hosted video with responsive player.',
+  },
+  version: 1,
+  fields: [
+    {
+      key: 'title',
+      type: 'text',
+      label: { es: 'Título (opcional)', en: 'Title (optional)' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 100 },
+      order: 1,
+    },
+    {
+      key: 'subtitle',
+      type: 'text',
+      label: { es: 'Subtítulo (opcional)', en: 'Subtitle (optional)' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 200 },
+      order: 2,
+    },
+    {
+      key: 'video_url',
+      type: 'link',
+      label: { es: 'URL del video', en: 'Video URL' },
+      description: {
+        es: 'URL de YouTube, Vimeo o ruta directa del archivo.',
+        en: 'YouTube, Vimeo URL or direct file path.',
+      },
+      isMultilingual: false,
+      required: true,
+      order: 3,
+    },
+    {
+      key: 'video_type',
+      type: 'select',
+      label: { es: 'Tipo de video', en: 'Video type' },
+      isMultilingual: false,
+      required: true,
+      defaultValue: 'youtube',
+      selectOptions: [
+        { value: 'youtube', label: { es: 'YouTube', en: 'YouTube' } },
+        { value: 'vimeo', label: { es: 'Vimeo', en: 'Vimeo' } },
+        { value: 'file', label: { es: 'Archivo propio', en: 'Self-hosted file' } },
+      ],
+      order: 4,
+    },
+    {
+      key: 'aspect_ratio',
+      type: 'select',
+      label: { es: 'Relación de aspecto', en: 'Aspect ratio' },
+      isMultilingual: false,
+      required: false,
+      defaultValue: '16/9',
+      selectOptions: [
+        { value: '16/9', label: { es: '16:9 (horizontal)', en: '16:9 (landscape)' } },
+        { value: '4/3', label: { es: '4:3 (clásico)', en: '4:3 (classic)' } },
+        { value: '1/1', label: { es: '1:1 (cuadrado)', en: '1:1 (square)' } },
+      ],
+      order: 5,
+    },
+    {
+      key: 'poster_image_url',
+      type: 'image',
+      label: { es: 'Imagen de portada (thumbnail)', en: 'Cover image (thumbnail)' },
+      description: {
+        es: 'Se muestra antes de reproducir el video. Si no se especifica, se carga el player directamente.',
+        en: 'Shown before playing the video. If not set, the player loads directly.',
+      },
+      isMultilingual: false,
+      required: false,
+      order: 6,
+    },
+    {
+      key: 'caption',
+      type: 'text',
+      label: { es: 'Pie de video (opcional)', en: 'Video caption (optional)' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 300 },
+      order: 7,
+    },
+  ],
+}

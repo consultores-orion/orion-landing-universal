@@ -1,0 +1,101 @@
+import type { ModuleSchemaDef } from '@/lib/modules/types'
+
+export const statsSchema: ModuleSchemaDef = {
+  key: 'stats',
+  name: { es: 'Estadísticas', en: 'Stats' },
+  description: {
+    es: 'Métricas clave con animación de contador al hacer scroll.',
+    en: 'Key metrics with scroll-triggered counter animation.',
+  },
+  version: 1,
+  fields: [
+    {
+      key: 'title',
+      type: 'text',
+      label: { es: 'Título (opcional)', en: 'Title (optional)' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 100 },
+      order: 1,
+    },
+    {
+      key: 'subtitle',
+      type: 'text',
+      label: { es: 'Subtítulo (opcional)', en: 'Subtitle (optional)' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 200 },
+      order: 2,
+    },
+    {
+      key: 'items',
+      type: 'list',
+      label: { es: 'Estadísticas', en: 'Stats' },
+      description: {
+        es: 'Lista de métricas a mostrar.',
+        en: 'List of metrics to display.',
+      },
+      isMultilingual: false,
+      required: true,
+      order: 3,
+      listItemSchema: [
+        {
+          key: 'id',
+          type: 'text',
+          label: { es: 'ID único', en: 'Unique ID' },
+          isMultilingual: false,
+          required: true,
+        },
+        {
+          key: 'value',
+          type: 'number',
+          label: { es: 'Valor numérico', en: 'Numeric value' },
+          isMultilingual: false,
+          required: true,
+          validation: { min: 0 },
+        },
+        {
+          key: 'prefix',
+          type: 'text',
+          label: { es: 'Prefijo (ej: $, +)', en: 'Prefix (e.g., $, +)' },
+          isMultilingual: false,
+          required: false,
+        },
+        {
+          key: 'suffix',
+          type: 'text',
+          label: { es: 'Sufijo (ej: %, k, +)', en: 'Suffix (e.g., %, k, +)' },
+          isMultilingual: false,
+          required: false,
+        },
+        {
+          key: 'label',
+          type: 'text',
+          label: { es: 'Etiqueta', en: 'Label' },
+          isMultilingual: true,
+          required: true,
+        },
+        {
+          key: 'description',
+          type: 'text',
+          label: { es: 'Descripción breve', en: 'Short description' },
+          isMultilingual: true,
+          required: false,
+        },
+      ],
+    },
+    {
+      key: 'layout',
+      type: 'select',
+      label: { es: 'Disposición', en: 'Layout' },
+      isMultilingual: false,
+      required: false,
+      defaultValue: 'row',
+      selectOptions: [
+        { value: 'row', label: { es: 'Fila horizontal', en: 'Horizontal row' } },
+        { value: 'grid', label: { es: 'Cuadrícula', en: 'Grid' } },
+      ],
+      order: 4,
+    },
+  ],
+}

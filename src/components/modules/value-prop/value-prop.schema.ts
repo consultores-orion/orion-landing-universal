@@ -1,0 +1,93 @@
+import type { ModuleSchemaDef } from '@/lib/modules/types'
+
+export const valuePropSchema: ModuleSchemaDef = {
+  key: 'value_prop',
+  name: { es: 'Propuesta de Valor', en: 'Value Proposition' },
+  description: {
+    es: 'Sección de beneficios con iconos, títulos y descripciones en grid.',
+    en: 'Benefits section with icons, titles, and descriptions in a grid.',
+  },
+  version: 1,
+  fields: [
+    {
+      key: 'title',
+      type: 'text',
+      label: { es: 'Título de la sección', en: 'Section title' },
+      isMultilingual: true,
+      required: true,
+      validation: { minLength: 3, maxLength: 100 },
+      order: 1,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: { es: 'Subtítulo', en: 'Subtitle' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 300 },
+      order: 2,
+    },
+    {
+      key: 'items',
+      type: 'list',
+      label: { es: 'Beneficios', en: 'Benefits' },
+      isMultilingual: false,
+      required: true,
+      order: 3,
+      listItemSchema: [
+        {
+          key: 'icon',
+          type: 'text',
+          label: { es: 'Nombre de icono (Lucide)', en: 'Icon name (Lucide)' },
+          isMultilingual: false,
+          required: false,
+          defaultValue: 'Star',
+        },
+        {
+          key: 'title',
+          type: 'text',
+          label: { es: 'Título del beneficio', en: 'Benefit title' },
+          isMultilingual: true,
+          required: true,
+          validation: { maxLength: 80 },
+        },
+        {
+          key: 'description',
+          type: 'textarea',
+          label: { es: 'Descripción', en: 'Description' },
+          isMultilingual: true,
+          required: true,
+          validation: { maxLength: 300 },
+        },
+      ],
+    },
+    {
+      key: 'columns',
+      type: 'select',
+      label: { es: 'Columnas', en: 'Columns' },
+      isMultilingual: false,
+      required: false,
+      defaultValue: '3',
+      selectOptions: [
+        { value: '2', label: { es: '2 columnas', en: '2 columns' } },
+        { value: '3', label: { es: '3 columnas', en: '3 columns' } },
+        { value: '4', label: { es: '4 columnas', en: '4 columns' } },
+      ],
+      order: 4,
+    },
+    {
+      key: 'layout',
+      type: 'select',
+      label: { es: 'Estilo visual', en: 'Visual style' },
+      isMultilingual: false,
+      required: false,
+      defaultValue: 'cards',
+      selectOptions: [
+        { value: 'cards', label: { es: 'Tarjetas', en: 'Cards' } },
+        { value: 'minimal', label: { es: 'Minimalista', en: 'Minimal' } },
+        { value: 'icons-top', label: { es: 'Icono arriba', en: 'Icons top' } },
+      ],
+      order: 5,
+    },
+  ],
+}

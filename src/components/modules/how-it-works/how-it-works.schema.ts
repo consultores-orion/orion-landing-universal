@@ -1,0 +1,86 @@
+import type { ModuleSchemaDef } from '@/lib/modules/types'
+
+export const howItWorksSchema: ModuleSchemaDef = {
+  key: 'how_it_works',
+  name: { es: 'Cómo Funciona', en: 'How It Works' },
+  description: {
+    es: 'Proceso paso a paso que muestra cómo usar tu producto o servicio.',
+    en: 'Step-by-step process showing how to use your product or service.',
+  },
+  version: 1,
+  fields: [
+    {
+      key: 'title',
+      type: 'text',
+      label: { es: 'Título de la sección', en: 'Section title' },
+      isMultilingual: true,
+      required: true,
+      validation: { minLength: 3, maxLength: 100 },
+      order: 1,
+    },
+    {
+      key: 'subtitle',
+      type: 'textarea',
+      label: { es: 'Subtítulo', en: 'Subtitle' },
+      isMultilingual: true,
+      required: false,
+      validation: { maxLength: 300 },
+      order: 2,
+    },
+    {
+      key: 'steps',
+      type: 'list',
+      label: { es: 'Pasos', en: 'Steps' },
+      isMultilingual: false,
+      required: true,
+      order: 3,
+      listItemSchema: [
+        {
+          key: 'number',
+          type: 'number',
+          label: { es: 'Número', en: 'Number' },
+          isMultilingual: false,
+          required: true,
+          validation: { min: 1, max: 99 },
+        },
+        {
+          key: 'title',
+          type: 'text',
+          label: { es: 'Título del paso', en: 'Step title' },
+          isMultilingual: true,
+          required: true,
+          validation: { maxLength: 80 },
+        },
+        {
+          key: 'description',
+          type: 'textarea',
+          label: { es: 'Descripción', en: 'Description' },
+          isMultilingual: true,
+          required: true,
+          validation: { maxLength: 300 },
+        },
+        {
+          key: 'icon',
+          type: 'text',
+          label: { es: 'Icono (Lucide)', en: 'Icon (Lucide)' },
+          isMultilingual: false,
+          required: false,
+        },
+      ],
+    },
+    {
+      key: 'layout',
+      type: 'select',
+      label: { es: 'Disposición', en: 'Layout' },
+      isMultilingual: false,
+      required: false,
+      defaultValue: 'horizontal',
+      selectOptions: [
+        { value: 'horizontal', label: { es: 'Horizontal', en: 'Horizontal' } },
+        { value: 'vertical', label: { es: 'Vertical', en: 'Vertical' } },
+        { value: 'alternating', label: { es: 'Alternado', en: 'Alternating' } },
+      ],
+      order: 4,
+    },
+  ],
+}
