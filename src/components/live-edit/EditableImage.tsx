@@ -31,6 +31,9 @@ function SaveBadge({ status }: { status: 'idle' | 'saving' | 'saved' | 'error' }
 
   return (
     <span
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       className={[
         'pointer-events-none absolute top-2 right-2 z-50 flex items-center gap-1 rounded px-1.5 py-0.5 text-[11px] font-medium whitespace-nowrap',
         status === 'saving' ? 'bg-muted text-muted-foreground' : '',

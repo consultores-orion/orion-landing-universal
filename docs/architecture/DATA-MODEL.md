@@ -39,10 +39,10 @@ El modelo de datos está diseñado para soportar una landing page completamente 
 │             │     │              │     │               │
 └─────────────┘     └──────────────┘     └───────────────┘
 
-                    ┌──────────────┐
-                    │  seo_config  │
-                    │              │
-                    └──────────────┘
+┌─────────────┐     ┌──────────────┐
+│  seo_config │     │content_changes│
+│             │     │  (audit log) │
+└─────────────┘     └──────────────┘
 ```
 
 ---
@@ -971,24 +971,104 @@ CREATE INDEX idx_seo_config_page_key ON seo_config (page_key);
 
 ---
 
+### 3.11 `content_changes` — Log de Auditoría de Cambios
+
+Registra cada operación de edición inline realizada en el contenido de los módulos. Funciona como log de auditoría inmutable para rastrear quién cambió qué y cuándo.
+
+```sql
+CREATE TABLE content_changes (
+    id          UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id     UUID          REFERENCES auth.users(id) ON DELETE SET NULL,
+    section_key VARCHAR(50)   NOT NULL,
+    field_path  VARCHAR(200)  NOT NULL,
+    lang        VARCHAR(10),
+    old_value   TEXT,
+    new_value   TEXT          NOT NULL,
+    changed_at  TIMESTAMPTZ   DEFAULT now()
+);
+```
+
+**Campos**:
+
+| Campo         | Tipo         | Descripción                                                   |
+| ------------- | ------------ | ------------------------------------------------------------- |
+| `id`          | UUID (PK)    | Identificador único                                           |
+| `user_id`     | UUID (FK)    | Referencia al usuario que realizó el cambio (`auth.users.id`) |
+| `section_key` | VARCHAR(50)  | Módulo afectado (ej: `hero`, `pricing`)                       |
+| `field_path`  | VARCHAR(200) | Ruta del campo dentro del contenido JSONB (ej: `title`)       |
+| `lang`        | VARCHAR(10)  | Código de idioma del cambio (ej: `es`, `en`)                  |
+| `old_value`   | TEXT         | Valor anterior (NULL para primeras inserciones)               |
+| `new_value`   | TEXT         | Valor nuevo                                                   |
+| `changed_at`  | TIMESTAMPTZ  | Fecha y hora del cambio                                       |
+
+**RLS Policies**:
+
+```sql
+ALTER TABLE content_changes ENABLE ROW LEVEL SECURITY;
+
+-- Solo usuarios autenticados (admin) pueden leer el log
+CREATE POLICY "content_changes_admin_select" ON content_changes
+    FOR SELECT
+    USING (auth.role() = 'authenticated');
+
+-- Registro de cambios por API inline-edit
+CREATE POLICY "content_changes_admin_insert" ON content_changes
+    FOR INSERT
+    WITH CHECK (auth.role() = 'authenticated');
+
+-- Limpieza de registros antiguos
+CREATE POLICY "content_changes_admin_delete" ON content_changes
+    FOR DELETE
+    USING (auth.role() = 'authenticated');
+```
+
+**Índices**:
+
+```sql
+CREATE INDEX idx_content_changes_section_key ON content_changes (section_key);
+CREATE INDEX idx_content_changes_changed_at  ON content_changes (changed_at DESC);
+CREATE INDEX idx_content_changes_user_id     ON content_changes (user_id);
+CREATE INDEX idx_content_changes_field       ON content_changes (section_key, field_path);
+```
+
+**Notas**:
+
+- No tiene acceso público (ni lectura ni escritura)
+- Los registros se crean automáticamente desde `PUT /api/inline-edit` de forma non-blocking
+- Introducida en migración `002_content_changes.sql`
+
+---
+
 ## 4. Migración Completa
 
-### 4.1 Archivo de Migración Consolidado
+### 4.1 Archivos de Migración
 
-El archivo de migración completo se encuentra en:
+Las migraciones se encuentran en:
 
 ```
-src/lib/supabase/migrations/001_initial_schema.sql
+supabase/migrations/001_initial_schema.sql   — 10 tablas principales + RLS + índices
+supabase/migrations/002_content_changes.sql  — Tabla de auditoría de cambios inline
+supabase/migrations/003_storage_buckets.sql  — Buckets de Storage + RLS en storage.objects
 ```
 
-Este archivo contiene, en orden:
+**001_initial_schema.sql** contiene, en orden:
 
 1. Función `update_updated_at_column()`
-2. Todas las tablas (`CREATE TABLE`)
+2. Las 10 tablas principales (`CREATE TABLE`)
 3. Todos los triggers
 4. Todas las políticas RLS
 5. Todos los índices
-6. Datos semilla para `color_palettes` y `languages`
+
+**002_content_changes.sql** contiene:
+
+1. Tabla `content_changes`
+2. Políticas RLS (admin-only)
+3. Índices para consultas por `section_key`, `changed_at`, `user_id`
+
+**003_storage_buckets.sql** contiene:
+
+1. Tres buckets de Storage: `media` (biblioteca general, 5 MB), `page_images` (imágenes de módulos, 5 MB), `avatars` (fotos de equipo, 2 MB)
+2. Políticas RLS en `storage.objects`: lectura pública + escritura solo para usuarios autenticados (por bucket)
 
 ### 4.2 Datos Semilla para Primera Ejecución
 
@@ -1001,6 +1081,9 @@ El wizard de configuración inicial (`/setup`) crea los siguientes registros dur
 5. **`module_schemas`**: Una fila por cada uno de los 19 módulos con sus campos editables y contenido por defecto
 6. **`seo_config`**: Una fila para `page_key = 'home'` con meta tags básicos
 7. **`color_palettes`**: Las 20 paletas predefinidas
+8. **Storage buckets**: `media`, `page_images`, `avatars` — creados vía `seedStorageBuckets()` en `src/lib/setup/storage-seed.ts`
+
+> **Nota**: La tabla `media` inicia vacía intencionalmente. Los registros se crean cuando el admin sube archivos desde la Biblioteca de Medios (`/admin/media`). Los archivos físicos se almacenan en el bucket `media` de Supabase Storage.
 
 ---
 
@@ -1051,8 +1134,8 @@ if (module.schema_version === 1) {
 Para futuras funcionalidades (blog, tienda, analytics propios), se crearán nuevos archivos de migración:
 
 ```
-src/lib/supabase/migrations/002_blog_tables.sql
-src/lib/supabase/migrations/003_analytics_tables.sql
+supabase/migrations/004_blog_tables.sql
+supabase/migrations/005_analytics_tables.sql
 ```
 
 Cada migración es incremental y no destructiva.

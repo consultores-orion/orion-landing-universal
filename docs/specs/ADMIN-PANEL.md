@@ -316,6 +316,12 @@ El editor lee el `ModuleSchema` del modulo y genera campos de formulario automat
 | `date`                      | `<DatePicker />` (shadcn/ui)   | Calendario para seleccionar fecha/hora                                                                                       |
 | `select`                    | `<Select />` (shadcn/ui)       | Dropdown con opciones definidas en `selectOptions`                                                                           |
 
+#### Resolucion de Labels en DynamicField
+
+> **Nota S17**: Patron establecido durante integracion del editor de contenido.
+
+`resolveLabel()` resuelve labels multilingue (`{ es: "...", en: "..." }`) o strings planos. Si el campo no tiene `label` (como ocurre con schemas guardados en BD sin labels), la funcion retorna `''` y `DynamicField` genera un label legible desde el `key` del campo: `background_image` → `"Background Image"`.
+
 ### 4.4 Manejo de Campos Multilingues
 
 Cuando un campo tiene `isMultilingual: true`:
@@ -784,6 +790,23 @@ Para cada idioma:
 
 - Preview de como se vera en Google (titulo + URL + descripcion)
 - Preview de como se vera al compartir en redes sociales (OG card)
+
+#### Patron de Navegacion en Server Components
+
+> **Nota S17**: Patron establecido para botones de navegacion en paginas SEO y cualquier Server Component.
+
+Los botones de navegacion en paginas SEO (y cualquier Server Component) usan `<Link>` con `buttonVariants()` para estilo visual de boton:
+
+```tsx
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
+
+;<Link href="/admin/seo" className={buttonVariants({ variant: 'ghost', size: 'sm' })}>
+  ← Volver a SEO
+</Link>
+```
+
+NO usar `<Button render={<Link>}>` ni `<Button asChild>` — Base UI Button espera un `<button>` nativo.
 
 ### 8.3 API SEO
 

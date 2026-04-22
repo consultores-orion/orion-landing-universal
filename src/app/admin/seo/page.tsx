@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Search, CheckCircle, AlertCircle } from 'lucide-react'
 import { createServerClient } from '@/lib/supabase/server'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import {
   Card,
   CardHeader,
@@ -116,14 +116,21 @@ function SeoLanguageCard({ language, seoRow }: SeoLanguageCardProps) {
       </CardContent>
 
       <CardFooter>
-        <Button
-          size="sm"
-          variant="outline"
-          className="w-full"
-          render={<Link href={`/admin/seo/${language.code}`} />}
+        <Link
+          href={`/admin/seo/${language.code}`}
+          className={cn(
+            // base
+            "group/button focus-visible:border-ring focus-visible:ring-ring/50 inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:ring-3 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            // variant: outline
+            'border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
+            // size: sm
+            "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+            // extra
+            'w-full',
+          )}
         >
           Editar
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   )

@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react'
+import Image from 'next/image'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
@@ -137,11 +138,12 @@ function MemberCard({ member, t }: MemberCardProps) {
       }}
     >
       {/* Avatar */}
-      <img
+      <Image
         src={member.avatar_url || '/placeholder-avatar.svg'}
         alt={member.name}
+        width={96}
+        height={96}
         className="mx-auto h-24 w-24 rounded-full object-cover"
-        loading="lazy"
       />
 
       {/* Name */}

@@ -1,6 +1,5 @@
 import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Users, Puzzle, Languages, Clock } from 'lucide-react'
 import { createServerClient } from '@/lib/supabase/server'
 import { BreadcrumbSetter } from '@/components/admin/dashboard/BreadcrumbSetter'
 import { StatsCard } from '@/components/admin/dashboard/StatsCard'
@@ -160,7 +159,7 @@ export default async function DashboardPage() {
           title="Leads esta Semana"
           value={data.leadsThisWeek}
           subtitle={prevWeekSubtitle}
-          icon={Users}
+          icon="users"
           trend={trend}
           trendValue={trendValue}
         />
@@ -168,19 +167,19 @@ export default async function DashboardPage() {
           title="Módulos Activos"
           value={data.activeModules}
           subtitle="de 19 totales"
-          icon={Puzzle}
+          icon="puzzle"
         />
         <StatsCard
           title="Idiomas Activos"
           value={data.languages.length}
           subtitle={languageCodes}
-          icon={Languages}
+          icon="languages"
         />
         <StatsCard
           title="Última Edición"
           value={lastEditFormatted}
           subtitle="Última modificación"
-          icon={Clock}
+          icon="clock"
         />
       </div>
 

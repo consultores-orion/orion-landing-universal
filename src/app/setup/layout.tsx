@@ -10,7 +10,9 @@ export default function SetupLayout({ children }: SetupLayoutProps) {
           <h2 className="text-primary text-2xl font-bold tracking-tight">Orion Landing</h2>
           <p className="text-muted-foreground mt-1 text-sm">Setup Wizard</p>
         </div>
-        {children}
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </div>
     </div>
   )

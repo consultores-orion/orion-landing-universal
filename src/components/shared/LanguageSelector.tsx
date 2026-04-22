@@ -20,7 +20,7 @@ export function LanguageSelector({ variant = 'buttons', size = 'sm' }: LanguageS
       <select
         value={currentLang}
         onChange={(e) => setLang(e.target.value)}
-        className={`border-border bg-surface text-text-primary focus:ring-primary rounded border focus:ring-2 focus:outline-none ${
+        className={`border-border bg-surface text-text-primary focus-visible:ring-primary rounded border focus-visible:ring-2 focus-visible:outline-none ${
           size === 'sm' ? 'px-2 py-1 text-sm' : 'px-3 py-2 text-base'
         }`}
         aria-label="Seleccionar idioma"
@@ -45,7 +45,7 @@ export function LanguageSelector({ variant = 'buttons', size = 'sm' }: LanguageS
             onClick={() => setLang(lang.code)}
             aria-pressed={isActive}
             aria-label={lang.native_name}
-            className={`rounded transition-colors ${
+            className={`focus-visible:ring-primary rounded transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none ${
               size === 'sm' ? 'px-2 py-1 text-xs' : 'px-3 py-1.5 text-sm'
             } ${
               isActive

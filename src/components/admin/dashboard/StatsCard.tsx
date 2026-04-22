@@ -1,27 +1,30 @@
 'use client'
 
 import type { ElementType } from 'react'
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, Users, Puzzle, Languages, Clock } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+
+// Icon name → component mapping (resolved client-side to avoid
+// passing React components across the Server → Client boundary)
+const iconMap: Record<string, ElementType> = {
+  users: Users,
+  puzzle: Puzzle,
+  languages: Languages,
+  clock: Clock,
+}
 
 interface StatsCardProps {
   title: string
   value: string | number
   subtitle: string
-  icon: ElementType
+  icon: string
   trend?: 'up' | 'down' | 'neutral'
   trendValue?: string
 }
 
-export function StatsCard({
-  title,
-  value,
-  subtitle,
-  icon: Icon,
-  trend,
-  trendValue,
-}: StatsCardProps) {
+export function StatsCard({ title, value, subtitle, icon, trend, trendValue }: StatsCardProps) {
+  const Icon = iconMap[icon] ?? Minus
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
 
   const trendColor =

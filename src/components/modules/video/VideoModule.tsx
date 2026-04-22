@@ -104,7 +104,7 @@ export default function VideoModule({
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
               }}
-              className="flex h-20 w-20 items-center justify-center rounded-full bg-white/80 shadow-lg transition-transform hover:scale-110 focus:ring-4 focus:outline-none"
+              className="flex h-20 w-20 items-center justify-center rounded-full bg-white/80 shadow-lg transition-transform hover:scale-110 focus-visible:ring-4 focus-visible:outline-none"
             >
               {/* Play triangle SVG */}
               <svg

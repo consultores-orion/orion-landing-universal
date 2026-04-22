@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import Image from 'next/image'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
@@ -15,6 +16,20 @@ const marqueeKeyframes = `
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+@media (prefers-reduced-motion: reduce) {
+  .orion-marquee-track { animation-play-state: paused !important; }
+}
+.orion-logo-img {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.orion-logo-img:hover { filter: grayscale(0%); opacity: 1; }
+.orion-logo-text {
+  opacity: 0.7;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.orion-logo-text:hover { opacity: 1; color: var(--color-text-primary) !important; }
 `
 
 export default function ClientLogosModule({
@@ -59,14 +74,24 @@ export default function ClientLogosModule({
         </p>
       )}
 
-      {/* Marquee track container — overflow hidden to mask the repeat */}
+      {/* Visually hidden list for screen readers */}
+      {logos.length > 0 && (
+        <ul className="sr-only" aria-label="Clientes">
+          {logos.map((logo) => (
+            <li key={logo.id}>{logo.name}</li>
+          ))}
+        </ul>
+      )}
+
+      {/* Marquee is decorative — hidden from screen readers */}
       <div
+        aria-hidden="true"
         className="overflow-hidden"
         style={{
           maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
         }}
       >
-        <div style={trackStyle}>
+        <div style={trackStyle} className="orion-marquee-track">
           {doubledLogos.map((logo, index) => (
             <LogoItem key={`${logo.id}-${index}`} logo={logo} />
           ))}
@@ -81,25 +106,13 @@ function LogoItem({ logo }: { logo: ClientLogo }) {
 
   if (hasImage) {
     return (
-      <div
-        className="shrink-0 transition-all duration-300"
-        style={{ filter: 'grayscale(100%)', opacity: 0.6 }}
-        onMouseEnter={(e) => {
-          const el = e.currentTarget as HTMLDivElement
-          el.style.filter = 'grayscale(0%)'
-          el.style.opacity = '1'
-        }}
-        onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLDivElement
-          el.style.filter = 'grayscale(100%)'
-          el.style.opacity = '0.6'
-        }}
-      >
-        <img
+      <div className="orion-logo-img shrink-0">
+        <Image
           src={logo.logoImage.url}
           alt={logo.logoImage.alt?.['en'] ?? logo.name}
+          width={160}
+          height={40}
           className="h-10 w-auto max-w-[160px] object-contain"
-          loading="lazy"
         />
       </div>
     )
@@ -108,23 +121,12 @@ function LogoItem({ logo }: { logo: ClientLogo }) {
   // Placeholder when no image URL is provided
   return (
     <div
-      className="flex h-10 shrink-0 items-center justify-center rounded-lg px-5 py-2 transition-all duration-300"
+      className="orion-logo-text flex h-10 shrink-0 items-center justify-center rounded-lg px-5 py-2"
       style={{
         backgroundColor: 'var(--color-surface)',
         border: '1px solid var(--color-border)',
         color: 'var(--color-text-secondary)',
-        opacity: 0.7,
         minWidth: '120px',
-      }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLDivElement
-        el.style.opacity = '1'
-        el.style.color = 'var(--color-text-primary)'
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLDivElement
-        el.style.opacity = '0.7'
-        el.style.color = 'var(--color-text-secondary)'
       }}
     >
       <span className="text-sm font-semibold tracking-wide">{logo.name}</span>

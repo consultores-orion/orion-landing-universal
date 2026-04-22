@@ -151,10 +151,14 @@ export default function ConnectPage() {
               <button
                 type="button"
                 onClick={() => setShowAnon(!showAnon)}
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2"
-                tabIndex={-1}
+                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 rounded p-2"
+                aria-label={showAnon ? 'Ocultar clave anon' : 'Mostrar clave anon'}
               >
-                {showAnon ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showAnon ? (
+                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4" aria-hidden="true" />
+                )}
               </button>
             </div>
             <p className="text-muted-foreground text-xs">
@@ -177,10 +181,16 @@ export default function ConnectPage() {
               <button
                 type="button"
                 onClick={() => setShowServiceRole(!showServiceRole)}
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2"
-                tabIndex={-1}
+                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 rounded p-2"
+                aria-label={
+                  showServiceRole ? 'Ocultar service role key' : 'Mostrar service role key'
+                }
               >
-                {showServiceRole ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showServiceRole ? (
+                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4" aria-hidden="true" />
+                )}
               </button>
             </div>
             <p className="text-muted-foreground text-xs">
@@ -203,10 +213,14 @@ export default function ConnectPage() {
               <button
                 type="button"
                 onClick={() => setShowDatabase(!showDatabase)}
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2"
-                tabIndex={-1}
+                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 rounded p-2"
+                aria-label={showDatabase ? 'Ocultar database URL' : 'Mostrar database URL'}
               >
-                {showDatabase ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showDatabase ? (
+                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4" aria-hidden="true" />
+                )}
               </button>
             </div>
             <p className="text-muted-foreground text-xs">

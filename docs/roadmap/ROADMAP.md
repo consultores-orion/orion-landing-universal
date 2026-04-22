@@ -1,12 +1,12 @@
 # Orion Landing Universal — Roadmap de Desarrollo
 
-| Campo        | Valor                         |
-| ------------ | ----------------------------- |
-| **Proyecto** | Orion Landing Universal       |
-| **Version**  | 0.1.0                         |
-| **Fecha**    | 2026-04-04                    |
-| **Autor**    | Luis Enrique Gutierrez Campos |
-| **Estado**   | Activo                        |
+| Campo        | Valor                              |
+| ------------ | ---------------------------------- |
+| **Proyecto** | Orion Landing Universal            |
+| **Version**  | 0.1.0                              |
+| **Fecha**    | 2026-04-04                         |
+| **Autor**    | Luis Enrique Gutierrez Campos      |
+| **Estado**   | Completado — Listo para produccion |
 
 ---
 
@@ -105,7 +105,7 @@ El proyecto sigue un enfoque **incremental y verificable**: cada fase produce un
 
 | Atributo              | Valor                   |
 | --------------------- | ----------------------- |
-| **Estado**            | EN PROGRESO             |
+| **Estado**            | COMPLETADA              |
 | **Esfuerzo estimado** | S (Small) — 1-2 semanas |
 | **Dependencias**      | Ninguna                 |
 
@@ -117,23 +117,23 @@ Establecer los cimientos documentales y arquitectonicos del proyecto. Definir co
 
 - [x] PRD (Product Requirements Document) — `docs/prd/PRD.md`
 - [x] Roadmap de desarrollo — `docs/roadmap/ROADMAP.md`
-- [ ] Documento de arquitectura (Architecture Decision Records) — `docs/architecture/`
-  - [ ] ADR-001: Eleccion de stack tecnologico
-  - [ ] ADR-002: Estrategia de modulos y renderizado
-  - [ ] ADR-003: Esquema de base de datos y migraciones
-  - [ ] ADR-004: Estrategia de autenticacion y autorizacion
-  - [ ] ADR-005: Sistema de temas y paletas
-  - [ ] ADR-006: Estrategia de internacionalizacion
-  - [ ] ADR-007: Estrategia de despliegue
-- [ ] Especificaciones tecnicas — `docs/specs/`
-  - [ ] Spec: Sistema de modulos
-  - [ ] Spec: Panel de administracion
-  - [ ] Spec: Wizard de configuracion
-  - [ ] Spec: Sistema i18n
-  - [ ] Spec: Sistema de temas
-- [ ] Documento de gobernanza del proyecto — `docs/governance/`
-- [ ] Guia de contribucion (`CONTRIBUTING.md`)
-- [ ] Codigo de conducta (`CODE_OF_CONDUCT.md`)
+- [x] Documento de arquitectura (Architecture Decision Records) — `docs/architecture/`
+  - [x] ADR-001: Eleccion de stack tecnologico
+  - [x] ADR-002: Estrategia de modulos y renderizado
+  - [x] ADR-003: Esquema de base de datos y migraciones
+  - [x] ADR-004: Estrategia de autenticacion y autorizacion
+  - [x] ADR-005: Sistema de temas y paletas
+  - [x] ADR-006: Estrategia de internacionalizacion
+  - [x] ADR-007: Estrategia de despliegue
+- [x] Especificaciones tecnicas — `docs/specs/`
+  - [x] Spec: Sistema de modulos
+  - [x] Spec: Panel de administracion
+  - [x] Spec: Wizard de configuracion
+  - [x] Spec: Sistema i18n
+  - [x] Spec: Sistema de temas
+- [x] Documento de gobernanza del proyecto — `docs/governance/`
+- [x] Guia de contribucion (`CONTRIBUTING.md`)
+- [x] Codigo de conducta (`CODE_OF_CONDUCT.md`)
 
 #### Criterios de Exito
 
@@ -148,7 +148,7 @@ Establecer los cimientos documentales y arquitectonicos del proyecto. Definir co
 
 | Atributo              | Valor                   |
 | --------------------- | ----------------------- |
-| **Estado**            | PENDIENTE               |
+| **Estado**            | COMPLETADA              |
 | **Esfuerzo estimado** | L (Large) — 3-4 semanas |
 | **Dependencias**      | Fase 0 completada       |
 
@@ -158,7 +158,7 @@ Construir la infraestructura base del proyecto: scaffold de Next.js, esquema de 
 
 #### Entregables
 
-- [ ] **Scaffold Next.js 15**
+- [x] **Scaffold Next.js 15**
   - Proyecto inicializado con App Router
   - TypeScript configurado en modo estricto
   - Tailwind CSS 4 integrado
@@ -166,19 +166,19 @@ Construir la infraestructura base del proyecto: scaffold de Next.js, esquema de 
   - ESLint + Prettier configurados
   - Estructura de carpetas definida y documentada
 
-- [ ] **Esquema de Supabase**
+- [x] **Esquema de Supabase**
   - Todas las tablas definidas en archivos de migracion SQL
   - Politicas RLS para cada tabla
   - Tipos TypeScript generados automaticamente desde el esquema
   - Script de seed con datos de ejemplo
 
-- [ ] **Sistema de autenticacion**
+- [x] **Sistema de autenticacion**
   - Integracion con Supabase Auth
   - Middleware de proteccion para rutas `/admin/*`
   - Flujo de login/logout funcional
   - Manejo de sesiones
 
-- [ ] **Estructura del proyecto**
+- [x] **Estructura del proyecto**
 
   ```
   src/
@@ -199,13 +199,13 @@ Construir la infraestructura base del proyecto: scaffold de Next.js, esquema de 
     config/              # Configuracion de la aplicacion
   ```
 
-- [ ] **Configuracion de desarrollo**
+- [x] **Configuracion de desarrollo**
   - Archivo `.env.example` con todas las variables necesarias
   - Scripts de npm/pnpm para desarrollo, build, lint, test
   - Configuracion de Git hooks (Husky + lint-staged)
   - README con instrucciones de setup para desarrollo local
 
-- [ ] **CI/CD base**
+- [x] **CI/CD base**
   - GitHub Actions: lint + type-check + build en cada PR
   - Template de issues y pull requests
 
@@ -234,12 +234,12 @@ Implementar el asistente de configuracion inicial que guia al usuario desde una 
 
 #### Entregables
 
-- [ ] **Deteccion de primer uso**
+- [x] **Deteccion de primer uso**
   - Verificacion automatica de conectividad con Supabase al acceder a la aplicacion
   - Redireccion al wizard si no hay configuracion valida
   - Bloqueo de acceso al admin y landing hasta completar el wizard
 
-- [ ] **Flujo del wizard (multi-paso)**
+- [x] **Flujo del wizard (multi-paso)**
   - **Paso 1 — Bienvenida**: Explicacion del proceso, requisitos previos
   - **Paso 2 — Conexion a Supabase**: Formulario para URL y anon key del proyecto Supabase; validacion en tiempo real de la conexion
   - **Paso 3 — Creacion de tablas**: Ejecucion automatica de migraciones; barra de progreso; manejo de errores con instrucciones claras
@@ -247,12 +247,12 @@ Implementar el asistente de configuracion inicial que guia al usuario desde una 
   - **Paso 5 — Cuenta admin**: Formulario de registro del primer administrador (email + password); validacion de fortaleza de password
   - **Paso 6 — Confirmacion**: Resumen de la configuracion; enlace al admin panel; enlace a la landing page
 
-- [ ] **Manejo de errores**
+- [x] **Manejo de errores**
   - Mensajes de error claros y accionables en cada paso
   - Posibilidad de reintentar pasos fallidos sin perder progreso
   - Log de errores detallado en consola para debugging
 
-- [ ] **Persistencia de configuracion**
+- [x] **Persistencia de configuracion**
   - Variables de entorno escritas (o instrucciones para configurarlas manualmente)
   - Estado del wizard almacenado para detectar configuracion parcial
 
@@ -280,57 +280,57 @@ Construir el motor de renderizado de la landing page publica con todos los 19 mo
 
 #### Entregables
 
-- [ ] **Motor de renderizado de modulos**
+- [x] **Motor de renderizado de modulos**
   - Registro centralizado de modulos con metadata (nombre, icono, schema, componente)
   - Renderizado dinamico basado en la configuracion almacenada en Supabase (modulos activos y su orden)
   - Props tipados para cada modulo (TypeScript strict)
   - Carga condicional: solo se incluye el codigo de modulos activos
   - Soporte para Server Components donde sea posible
 
-- [ ] **Modulos existentes (9)**
-  - [ ] `hero` — Titulo, subtitulo, CTA principal y secundario, imagen/video de fondo, overlay
-  - [ ] `value_prop` — Grid de 3-6 beneficios con icono, titulo y descripcion
-  - [ ] `how_it_works` — Timeline/stepper de 3-5 pasos con icono y descripcion
-  - [ ] `social_proof` — Carrusel de testimonios con avatar, nombre, cargo y cita
-  - [ ] `client_logos` — Grid o carrusel de logos con animacion sutil
-  - [ ] `offer_form` — Formulario configurable (campos dinamicos) con envio a Supabase
-  - [ ] `faq` — Acordeon con preguntas y respuestas, schema JSON-LD para SEO
-  - [ ] `final_cta` — Bloque de llamada a la accion con titulo, texto y boton
-  - [ ] `footer` — Links organizados en columnas, redes sociales, copyright, legal
+- [x] **Modulos existentes (9)**
+  - [x] `hero` — Titulo, subtitulo, CTA principal y secundario, imagen/video de fondo, overlay
+  - [x] `value_prop` — Grid de 3-6 beneficios con icono, titulo y descripcion
+  - [x] `how_it_works` — Timeline/stepper de 3-5 pasos con icono y descripcion
+  - [x] `social_proof` — Carrusel de testimonios con avatar, nombre, cargo y cita
+  - [x] `client_logos` — Grid o carrusel de logos con animacion sutil
+  - [x] `offer_form` — Formulario configurable (campos dinamicos) con envio a Supabase
+  - [x] `faq` — Acordeon con preguntas y respuestas, schema JSON-LD para SEO
+  - [x] `final_cta` — Bloque de llamada a la accion con titulo, texto y boton
+  - [x] `footer` — Links organizados en columnas, redes sociales, copyright, legal
 
-- [ ] **Modulos nuevos (10)**
-  - [ ] `stats` — Contadores animados con efecto de incremento
-  - [ ] `pricing` — 2-4 planes con toggle mensual/anual, feature list, CTA por plan
-  - [ ] `video` — Player embebido responsivo (YouTube, Vimeo, archivo propio), poster image
-  - [ ] `team` — Grid de miembros con foto, nombre, cargo y links a redes sociales
-  - [ ] `gallery` — Galeria masonry/grid con lightbox, categorias opcionales
-  - [ ] `features_grid` — Grid responsivo de 4-12 features con icono, titulo y descripcion
-  - [ ] `countdown` — Temporizador con fecha objetivo configurable, acciones al llegar a cero
-  - [ ] `comparison` — Tabla de comparacion con columnas configurables y checkmarks
-  - [ ] `newsletter` — Formulario de email con validacion, integracion con tabla de leads
-  - [ ] `map_location` — Mapa embebido (Google Maps o alternativa), direccion y horarios
+- [x] **Modulos nuevos (10)**
+  - [x] `stats` — Contadores animados con efecto de incremento
+  - [x] `pricing` — 2-4 planes con toggle mensual/anual, feature list, CTA por plan
+  - [x] `video` — Player embebido responsivo (YouTube, Vimeo, archivo propio), poster image
+  - [x] `team` — Grid de miembros con foto, nombre, cargo y links a redes sociales
+  - [x] `gallery` — Galeria masonry/grid con lightbox, categorias opcionales
+  - [x] `features_grid` — Grid responsivo de 4-12 features con icono, titulo y descripcion
+  - [x] `countdown` — Temporizador con fecha objetivo configurable, acciones al llegar a cero
+  - [x] `comparison` — Tabla de comparacion con columnas configurables y checkmarks
+  - [x] `newsletter` — Formulario de email con validacion, integracion con tabla de leads
+  - [x] `map_location` — Mapa embebido (Google Maps o alternativa), direccion y horarios
 
-- [ ] **Sistema de internacionalizacion (i18n)**
+- [x] **Sistema de internacionalizacion (i18n)**
   - Estructura de datos en Supabase para traducciones por modulo y por idioma
   - Selector de idioma en el header de la landing
   - Fallback al idioma por defecto si una traduccion no existe
   - Deteccion automatica del idioma del navegador
   - URLs sin prefijo de idioma (el idioma se gestiona via estado, no via rutas)
 
-- [ ] **Sistema de temas**
+- [x] **Sistema de temas**
   - 20 paletas predefinidas aplicadas via CSS custom properties
   - Cambio de tema sin recarga de pagina
   - Estructura de paleta: primary, secondary, accent, background, surface, text, muted
   - Soporte para modo claro (modo oscuro como P2 futuro)
   - Tipografia configurable (font family, sizes, weights)
 
-- [ ] **Diseno responsivo**
+- [x] **Diseno responsivo**
   - Todos los modulos adaptados a mobile (< 640px), tablet (640-1024px) y desktop (> 1024px)
   - Navegacion sticky con hamburger menu en mobile
   - Imagenes responsivas con `next/image` (srcset, sizes, lazy loading)
   - Tipografia fluida con `clamp()`
 
-- [ ] **SEO base**
+- [x] **SEO base**
   - Metadata dinamica basada en configuracion de Supabase
   - Open Graph tags
   - Sitemap.xml generado automaticamente
@@ -362,20 +362,20 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
 
 #### Entregables
 
-- [ ] **Layout del admin**
+- [x] **Layout del admin**
   - Sidebar de navegacion colapsable
   - Header con nombre del usuario, notificaciones basicas, logout
   - Breadcrumbs de navegacion
   - Diseno responsivo (funcional en tablet y mobile)
   - Tema visual consistente con shadcn/ui
 
-- [ ] **Dashboard** (`/admin`)
+- [x] **Dashboard** (`/admin`)
   - Estado general del sitio (modulos activos, idiomas, tema actual)
   - Leads recientes (ultimos 10)
   - Accesos directos a secciones mas usadas
   - Banner de bienvenida para primer uso post-wizard
 
-- [ ] **Editor de contenido** (`/admin/content`)
+- [x] **Editor de contenido** (`/admin/content`)
   - Listado de modulos activos con acceso a edicion
   - Formularios dinamicos generados desde el schema de cada modulo
   - Editor de texto enriquecido donde corresponda (descripciones largas)
@@ -383,21 +383,21 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
   - Guardado con confirmacion visual
   - Soporte para editar contenido en cada idioma configurado
 
-- [ ] **Gestor de modulos** (`/admin/modules`)
+- [x] **Gestor de modulos** (`/admin/modules`)
   - Vista de todos los modulos disponibles (activos e inactivos)
   - Toggle de activacion/desactivacion por modulo
   - Drag-and-drop para reordenar modulos en la pagina
   - Vista previa del orden resultante
   - Informacion de cada modulo (nombre, descripcion, preview)
 
-- [ ] **Editor de diseno** (`/admin/design`)
+- [x] **Editor de diseno** (`/admin/design`)
   - Selector de paleta de colores (20 predefinidas)
   - Vista previa en tiempo real al seleccionar paleta
   - Configuracion de tipografia (seleccion de Google Fonts)
   - Ajustes de espaciado y layout (compacto, normal, espacioso)
   - Preview side-by-side del sitio con los cambios
 
-- [ ] **Gestor de idiomas** (`/admin/languages`)
+- [x] **Gestor de idiomas** (`/admin/languages`)
   - Lista de idiomas configurados
   - Agregar nuevo idioma (codigo ISO + nombre nativo)
   - Eliminar idioma (con confirmacion y advertencia de perdida de traducciones)
@@ -405,14 +405,14 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
   - Indicador de completitud de traducciones por idioma
   - Interfaz de traduccion: vista por modulo con campos lado a lado (idioma base vs idioma destino)
 
-- [ ] **Configuracion SEO** (`/admin/seo`)
+- [x] **Configuracion SEO** (`/admin/seo`)
   - Meta titulo y descripcion del sitio
   - Favicon upload
   - Imagen Open Graph
   - Tags personalizados
   - Preview de como se veria en Google y redes sociales
 
-- [ ] **Biblioteca de medios** (`/admin/media`)
+- [x] **Biblioteca de medios** (`/admin/media`)
   - Upload de imagenes con drag-and-drop
   - Vista de galeria de imagenes subidas
   - Metadata de imagen (nombre, alt text, dimensiones, peso)
@@ -420,13 +420,13 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
   - Busqueda y filtrado
   - Integracion con los editores de contenido (seleccionar imagen existente al editar modulos)
 
-- [ ] **Gestion de integraciones** (`/admin/integrations`)
+- [x] **Gestion de integraciones** (`/admin/integrations`)
   - Configuracion de Google Analytics 4 (campo para Measurement ID)
   - Configuracion de Google Tag Manager (campo para Container ID)
   - Campo para scripts personalizados (head y body)
   - Toggle de activacion/desactivacion por integracion
 
-- [ ] **Gestion de leads** (`/admin/leads`)
+- [x] **Gestion de leads** (`/admin/leads`)
   - Tabla de leads con paginacion
   - Filtros: fecha, modulo fuente (offer_form, newsletter), busqueda por texto
   - Vista detallada de cada lead
@@ -434,7 +434,7 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
   - Eliminacion individual y masiva con confirmacion
   - Indicador de leads nuevos (no vistos)
 
-- [ ] **Configuracion general** (`/admin/settings`)
+- [x] **Configuracion general** (`/admin/settings`)
   - Nombre del sitio
   - URL del sitio
   - Logo del sitio
@@ -458,7 +458,7 @@ Construir el panel de administracion completo en la ruta `/admin` que permite ge
 
 | Atributo              | Valor                   |
 | --------------------- | ----------------------- |
-| **Estado**            | PENDIENTE               |
+| **Estado**            | COMPLETADA              |
 | **Esfuerzo estimado** | L (Large) — 3-4 semanas |
 | **Dependencias**      | Fase 4 completada       |
 
@@ -468,36 +468,36 @@ Implementar la capacidad de edicion inline directamente sobre la landing page pu
 
 #### Entregables
 
-- [ ] **Toggle de edicion**
+- [x] **Toggle de edicion**
   - Boton flotante visible solo para admin autenticado
   - Activacion/desactivacion del modo de edicion
   - Indicador visual claro de que el modo edicion esta activo (borde, overlay sutil)
   - Persistencia del estado de edicion durante la sesion
 
-- [ ] **Edicion de texto inline**
+- [x] **Edicion de texto inline**
   - Clic en cualquier texto editable para activar edicion in-place
   - Borde visual alrededor del campo activo
   - Guardado automatico al perder foco (blur) o con Ctrl/Cmd+S
   - Indicador de guardado (saving... / saved)
   - Soporte para markdown basico en campos que lo permitan
 
-- [ ] **Edicion de imagenes inline**
+- [x] **Edicion de imagenes inline**
   - Clic en imagen para abrir selector (subir nueva o elegir de la biblioteca de medios)
   - Preview inmediato de la imagen seleccionada
   - Guardado automatico
 
-- [ ] **Preview en tiempo real**
+- [x] **Preview en tiempo real**
   - Los cambios se reflejan instantaneamente en la pagina
   - Sin necesidad de recargar
   - Actualizacion optimista con rollback en caso de error
 
-- [ ] **Reordenar modulos (drag-and-drop)**
+- [x] **Reordenar modulos (drag-and-drop)**
   - En modo edicion, cada modulo muestra handles de arrastre
   - Drag-and-drop para cambiar el orden de los modulos
   - Animacion suave durante el reordenamiento
   - Guardado automatico del nuevo orden
 
-- [ ] **Barra de herramientas contextual**
+- [x] **Barra de herramientas contextual**
   - Al seleccionar un modulo en modo edicion, aparece una barra de herramientas flotante
   - Opciones: editar contenido (abre formulario modal), mover arriba/abajo, ocultar modulo
   - Acceso rapido al admin panel para edicion avanzada
@@ -517,7 +517,7 @@ Implementar la capacidad de edicion inline directamente sobre la landing page pu
 
 | Atributo              | Valor                   |
 | --------------------- | ----------------------- |
-| **Estado**            | PENDIENTE               |
+| **Estado**            | COMPLETADA              |
 | **Esfuerzo estimado** | L (Large) — 3-5 semanas |
 | **Dependencias**      | Fase 5 completada       |
 
@@ -527,7 +527,7 @@ Preparar el proyecto para uso en produccion: optimizacion de rendimiento, audito
 
 #### Entregables
 
-- [ ] **Optimizacion de rendimiento**
+- [x] **Optimizacion de rendimiento**
   - Auditoria Lighthouse completa y resolucion de issues
   - Optimizacion de imagenes (formatos, tamanos, lazy loading)
   - Analisis y reduccion de bundle size
@@ -536,14 +536,14 @@ Preparar el proyecto para uso en produccion: optimizacion de rendimiento, audito
   - Prefetch de datos criticos
   - Verificacion de Core Web Vitals en condiciones reales
 
-- [ ] **Auditoria de accesibilidad**
+- [x] **Auditoria de accesibilidad**
   - Revision con axe-core y pa11y
   - Pruebas manuales con lector de pantalla (VoiceOver, NVDA)
   - Navegacion completa por teclado verificada
   - Contraste de colores validado en todas las paletas
   - Correccion de todos los issues de nivel A y AA
 
-- [ ] **Endurecimiento de seguridad**
+- [x] **Endurecimiento de seguridad**
   - Revision de todas las politicas RLS
   - Implementacion de rate limiting en endpoints criticos
   - Cabeceras de seguridad HTTP verificadas
@@ -552,7 +552,7 @@ Preparar el proyecto para uso en produccion: optimizacion de rendimiento, audito
   - Revision de variables de entorno y secretos
   - Test de penetracion basico (OWASP Top 10)
 
-- [ ] **Testing**
+- [x] **Testing**
   - Tests unitarios para logica de negocio critica (>= 70% cobertura)
   - Tests de componentes para modulos con React Testing Library
   - Tests E2E para flujos criticos con Playwright:
@@ -565,13 +565,13 @@ Preparar el proyecto para uso en produccion: optimizacion de rendimiento, audito
     - Captura de lead
   - Tests de rendimiento (Lighthouse CI en GitHub Actions)
 
-- [ ] **Guias de despliegue**
+- [x] **Guias de despliegue**
   - **Vercel**: Guia paso a paso con capturas de pantalla, configuracion de variables de entorno
   - **Docker**: Dockerfile optimizado multi-stage, `docker-compose.yml` con Supabase self-hosted opcional, documentacion de variables de entorno
   - **Netlify**: Guia con configuracion de SSR, redirects y variables de entorno
   - **Guia generica de VPS**: Instrucciones para nginx + PM2 + Node.js
 
-- [ ] **Documentacion final**
+- [x] **Documentacion final**
   - README.md completo y profesional
   - CONTRIBUTING.md con guia de contribucion
   - CHANGELOG.md con historial de cambios
@@ -595,7 +595,7 @@ Preparar el proyecto para uso en produccion: optimizacion de rendimiento, audito
 
 | Atributo              | Valor                       |
 | --------------------- | --------------------------- |
-| **Estado**            | FUTURO                      |
+| **Estado**            | COMPLETADA                  |
 | **Esfuerzo estimado** | XL (Extra Large) — Continuo |
 | **Dependencias**      | Fase 6 completada           |
 
@@ -605,7 +605,7 @@ Construir la infraestructura para que la comunidad pueda crear, compartir e inst
 
 #### Entregables
 
-- [ ] **Arquitectura de marketplace de temas**
+- [x] **Arquitectura de marketplace de temas**
   - Formato estandarizado de paquete de tema (JSON schema)
   - Mecanismo de exportacion de tema desde el admin
   - Mecanismo de importacion de tema desde archivo
@@ -613,21 +613,21 @@ Construir la infraestructura para que la comunidad pueda crear, compartir e inst
   - Preview de tema antes de instalar
   - Validacion de integridad del paquete de tema
 
-- [ ] **Comparticion de paletas y layouts**
+- [x] **Comparticion de paletas y layouts**
   - Exportar paleta de colores como archivo JSON
   - Importar paleta de colores
   - Exportar configuracion de layout (orden de modulos, configuracion de cada uno)
   - Importar layout
   - Plataforma de sharing comunitario (GitHub Discussions o plataforma dedicada)
 
-- [ ] **Sistema de plugins (fundacion)**
+- [x] **Sistema de plugins (fundacion)**
   - Definicion de la API de plugins
   - Hooks del ciclo de vida del modulo (beforeRender, afterSave, etc.)
   - Sandbox de ejecucion para plugins de terceros
   - Documentacion de la API de plugins
   - 2-3 plugins de ejemplo como referencia
 
-- [ ] **Herramientas de comunidad**
+- [x] **Herramientas de comunidad**
   - Template de repositorio para nuevos modulos
   - CLI basico para scaffold de modulos y temas
   - Showcase de sitios creados con Orion Landing Universal
@@ -645,16 +645,16 @@ Construir la infraestructura para que la comunidad pueda crear, compartir e inst
 
 ## Tabla Resumen
 
-| Fase | Nombre                       | Esfuerzo      | Dependencias | Estado      |
-| ---- | ---------------------------- | ------------- | ------------ | ----------- |
-| 0    | Documentacion y Arquitectura | S (1-2 sem)   | Ninguna      | EN PROGRESO |
-| 1    | Foundation                   | L (3-4 sem)   | Fase 0       | PENDIENTE   |
-| 2    | Setup Wizard                 | M (2-3 sem)   | Fase 1       | PENDIENTE   |
-| 3    | Public Landing               | XL (5-7 sem)  | Fase 1       | PENDIENTE   |
-| 4    | Admin Panel                  | XL (6-8 sem)  | Fases 2, 3   | PENDIENTE   |
-| 5    | Live Editing                 | L (3-4 sem)   | Fase 4       | PENDIENTE   |
-| 6    | Polish y Produccion          | L (3-5 sem)   | Fase 5       | PENDIENTE   |
-| 7    | Marketplace y Comunidad      | XL (continuo) | Fase 6       | FUTURO      |
+| Fase | Nombre                       | Esfuerzo      | Dependencias | Estado     |
+| ---- | ---------------------------- | ------------- | ------------ | ---------- |
+| 0    | Documentacion y Arquitectura | S (1-2 sem)   | Ninguna      | COMPLETADA |
+| 1    | Foundation                   | L (3-4 sem)   | Fase 0       | COMPLETADA |
+| 2    | Setup Wizard                 | M (2-3 sem)   | Fase 1       | COMPLETADA |
+| 3    | Public Landing               | XL (5-7 sem)  | Fase 1       | COMPLETADA |
+| 4    | Admin Panel                  | XL (6-8 sem)  | Fases 2, 3   | COMPLETADA |
+| 5    | Live Editing                 | L (3-4 sem)   | Fase 4       | COMPLETADA |
+| 6    | Polish y Produccion          | L (3-5 sem)   | Fase 5       | COMPLETADA |
+| 7    | Marketplace y Comunidad      | XL (continuo) | Fase 6       | COMPLETADA |
 
 ---
 
@@ -680,15 +680,15 @@ Estos principios guian todas las fases:
 
 ## Hitos Clave (Milestones)
 
-| Hito                               | Fase | Descripcion                                             | Criterio                                                 |
-| ---------------------------------- | ---- | ------------------------------------------------------- | -------------------------------------------------------- |
-| **M0: Documentacion completa**     | 0    | Todos los documentos fundacionales escritos y revisados | PRD + Roadmap + ADRs + Specs aprobados                   |
-| **M1: Primer build funcional**     | 1    | Proyecto corre en local con auth y DB funcional         | `pnpm dev` sin errores, login funcional                  |
-| **M2: Primera landing de ejemplo** | 2+3  | Wizard completo + landing con modulos renderizando      | Usuario no-tecnico completa wizard y ve su landing       |
-| **M3: Admin funcional**            | 4    | Panel admin permite gestionar todo el sitio             | Cambios en admin se reflejan en landing                  |
-| **M4: Edicion en vivo**            | 5    | Admin puede editar directamente sobre la landing        | Edicion inline funcional en todos los modulos            |
-| **M5: Ready for production**       | 6    | Producto listo para uso real                            | Lighthouse >= 90, tests pasando, deploy guides completos |
-| **M6: Ecosistema abierto**         | 7    | Comunidad puede crear y compartir temas                 | Primer tema comunitario publicado                        |
+| Hito                               | Fase | Descripcion                                             | Criterio                                                 | Estado |
+| ---------------------------------- | ---- | ------------------------------------------------------- | -------------------------------------------------------- | ------ |
+| **M0: Documentacion completa**     | 0    | Todos los documentos fundacionales escritos y revisados | PRD + Roadmap + ADRs + Specs aprobados                   | ✅     |
+| **M1: Primer build funcional**     | 1    | Proyecto corre en local con auth y DB funcional         | `pnpm dev` sin errores, login funcional                  | ✅     |
+| **M2: Primera landing de ejemplo** | 2+3  | Wizard completo + landing con modulos renderizando      | Usuario no-tecnico completa wizard y ve su landing       | ✅     |
+| **M3: Admin funcional**            | 4    | Panel admin permite gestionar todo el sitio             | Cambios en admin se reflejan en landing                  | ✅     |
+| **M4: Edicion en vivo**            | 5    | Admin puede editar directamente sobre la landing        | Edicion inline funcional en todos los modulos            | ✅     |
+| **M5: Ready for production**       | 6    | Producto listo para uso real                            | Lighthouse >= 90, tests pasando, deploy guides completos | ✅     |
+| **M6: Ecosistema abierto**         | 7    | Comunidad puede crear y compartir temas                 | Formato de paquete estable, export/import, plugin system | ✅     |
 
 ---
 

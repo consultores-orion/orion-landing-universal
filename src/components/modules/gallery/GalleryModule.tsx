@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Image from 'next/image'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
@@ -36,6 +37,18 @@ export default function GalleryModule({
   const show_captions = content.show_captions ?? true
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
+
+  // Focus management: focus close button when lightbox opens, restore trigger when it closes
+  useEffect(() => {
+    if (lightboxIndex !== null && closeButtonRef.current) {
+      closeButtonRef.current.focus()
+    } else if (lightboxIndex === null && triggerRef.current) {
+      triggerRef.current.focus()
+      triggerRef.current = null
+    }
+  }, [lightboxIndex])
 
   useEffect(() => {
     if (lightboxIndex === null) return
@@ -76,14 +89,24 @@ export default function GalleryModule({
       {layout === 'grid' && (
         <div className={`grid gap-4 ${getGridClass(columns)}`}>
           {images.map((img, index) => (
-            <div key={img.id} className="overflow-hidden rounded-lg">
-              <img
+            <button
+              key={img.id}
+              type="button"
+              onClick={(e) => {
+                triggerRef.current = e.currentTarget
+                setLightboxIndex(index)
+              }}
+              className="block w-full overflow-hidden rounded-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
+              aria-label={`Ver imagen: ${t(img.alt)}`}
+            >
+              <Image
                 src={img.url}
                 alt={t(img.alt)}
-                className="w-full cursor-pointer rounded-lg object-cover transition-opacity hover:opacity-90"
-                onClick={() => setLightboxIndex(index)}
+                width={800}
+                height={600}
+                className="w-full rounded-lg object-cover transition-opacity hover:opacity-90"
               />
-            </div>
+            </button>
           ))}
         </div>
       )}
@@ -93,12 +116,23 @@ export default function GalleryModule({
         <div className={`gap-4 ${getMasonryClass(columns)}`} style={{ columnFill: 'balance' }}>
           {images.map((img, index) => (
             <div key={img.id} className="mb-4 break-inside-avoid">
-              <img
-                src={img.url}
-                alt={t(img.alt)}
-                className="w-full cursor-pointer rounded-lg transition-opacity hover:opacity-90"
-                onClick={() => setLightboxIndex(index)}
-              />
+              <button
+                type="button"
+                onClick={(e) => {
+                  triggerRef.current = e.currentTarget
+                  setLightboxIndex(index)
+                }}
+                className="block w-full overflow-hidden rounded-lg focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:outline-none"
+                aria-label={`Ver imagen: ${t(img.alt)}`}
+              >
+                <Image
+                  src={img.url}
+                  alt={t(img.alt)}
+                  width={800}
+                  height={600}
+                  className="w-full rounded-lg object-cover transition-opacity hover:opacity-90"
+                />
+              </button>
             </div>
           ))}
         </div>
@@ -107,18 +141,22 @@ export default function GalleryModule({
       {/* Lightbox */}
       {lightboxIndex !== null && currentImage !== undefined && currentImage !== null && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Visor de imágenes"
           className="fixed inset-0 z-50 flex items-center justify-center"
           style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
           onClick={() => setLightboxIndex(null)}
         >
           {/* Close button */}
           <button
+            ref={closeButtonRef}
             onClick={(e) => {
               e.stopPropagation()
               setLightboxIndex(null)
             }}
-            className="absolute top-4 right-4 text-2xl font-bold text-white"
-            aria-label="Close lightbox"
+            className="absolute top-4 right-4 rounded text-2xl font-bold text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+            aria-label="Cerrar visor"
           >
             ✕
           </button>
@@ -129,8 +167,8 @@ export default function GalleryModule({
               e.stopPropagation()
               setLightboxIndex((i) => (i !== null ? Math.max(i - 1, 0) : null))
             }}
-            className="absolute left-4 text-3xl text-white"
-            aria-label="Previous image"
+            className="absolute left-4 rounded p-2 text-3xl text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+            aria-label="Imagen anterior"
             disabled={lightboxIndex === 0}
           >
             ‹
@@ -150,8 +188,8 @@ export default function GalleryModule({
               e.stopPropagation()
               setLightboxIndex((i) => (i !== null ? Math.min(i + 1, images.length - 1) : null))
             }}
-            className="absolute right-4 text-3xl text-white"
-            aria-label="Next image"
+            className="absolute right-4 rounded p-2 text-3xl text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black focus-visible:outline-none"
+            aria-label="Imagen siguiente"
             disabled={lightboxIndex === images.length - 1}
           >
             ›
@@ -165,7 +203,11 @@ export default function GalleryModule({
           )}
 
           {/* Counter */}
-          <p className="absolute right-4 bottom-4 text-xs text-white opacity-60">
+          <p
+            className="absolute right-4 bottom-4 text-xs text-white opacity-60"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {lightboxIndex + 1} / {images.length}
           </p>
         </div>

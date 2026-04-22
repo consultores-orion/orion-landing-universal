@@ -72,6 +72,8 @@ export default function NewsletterModule({
         {/* Success state */}
         {status === 'success' ? (
           <div
+            role="status"
+            aria-live="polite"
             className="rounded-xl px-6 py-8"
             style={{
               backgroundColor: 'color-mix(in srgb, #22c55e 10%, transparent)',
@@ -98,7 +100,7 @@ export default function NewsletterModule({
                     setErrorMsg('')
                   }}
                   placeholder={t(content.placeholder_email) || 'email@example.com'}
-                  className="flex-1 rounded-lg border px-4 py-3 text-sm transition-colors outline-none focus:ring-2"
+                  className="flex-1 rounded-lg border px-4 py-3 text-sm transition-colors outline-none focus-visible:ring-2"
                   style={{
                     borderColor: errorMsg ? 'var(--color-destructive)' : 'var(--color-border)',
                     backgroundColor: 'var(--color-surface)',

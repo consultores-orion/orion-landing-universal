@@ -139,7 +139,7 @@ function HeroButtonLink({ button, label }: { button: HeroButton; label: string }
   if (!label) return null
 
   const baseClass =
-    'inline-flex items-center justify-center rounded-lg px-8 py-3 text-base font-semibold transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2'
+    'inline-flex items-center justify-center rounded-lg px-8 py-3 text-base font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
 
   const variantStyles: Record<HeroButton['variant'], React.CSSProperties> = {
     primary: {

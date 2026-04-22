@@ -240,24 +240,26 @@ export function MediaGrid({ initialData, languages }: MediaGridProps) {
             size="icon"
             className="h-8 w-8 rounded-none border-0"
             onClick={() => setViewMode('grid')}
-            title="Vista cuadrícula"
+            aria-label="Vista cuadrícula"
+            aria-pressed={viewMode === 'grid'}
           >
-            <LayoutGrid className="size-3.5" />
+            <LayoutGrid className="size-3.5" aria-hidden="true" />
           </Button>
           <Button
             variant={viewMode === 'list' ? 'default' : 'ghost'}
             size="icon"
             className="h-8 w-8 rounded-none border-0"
             onClick={() => setViewMode('list')}
-            title="Vista lista"
+            aria-label="Vista lista"
+            aria-pressed={viewMode === 'list'}
           >
-            <List className="size-3.5" />
+            <List className="size-3.5" aria-hidden="true" />
           </Button>
         </div>
       </div>
 
       {/* Total count */}
-      <p className="text-muted-foreground text-xs">
+      <p role="status" aria-live="polite" className="text-muted-foreground text-xs">
         {loading ? 'Cargando…' : `${total} archivo${total !== 1 ? 's' : ''}`}
       </p>
 

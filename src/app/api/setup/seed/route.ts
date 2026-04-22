@@ -242,6 +242,7 @@ export async function POST(request: Request) {
     const { error: modulesError } = await supabase.from('page_modules').upsert(
       SEED_PAGE_MODULES.map((m) => ({
         section_key: m.section_key,
+        display_name: m.display_name ?? {},
         content: m.content,
         styles: m.styles,
         display_order: m.display_order,

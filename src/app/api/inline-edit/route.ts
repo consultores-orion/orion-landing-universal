@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { createServerClient } from '@/lib/supabase/server'
 import { rateLimit, getClientIp, rateLimitHeaders } from '@/lib/security/rate-limit'
+import { pluginRegistry } from '@/lib/plugins'
 
 const inlineEditSchema = z.object({
   sectionKey: z.string().min(1),
@@ -68,12 +69,16 @@ export async function PUT(request: NextRequest) {
   const currentContent = (moduleRow.content ?? {}) as Record<string, unknown>
   const newContent: Record<string, unknown> = { ...currentContent }
 
+  // Capture old value for change log
+  let oldValue: unknown
   if (lang !== undefined && lang !== '') {
     // Multilingual field: update newContent[lang][fieldPath]
     const langBlock = (newContent[lang] ?? {}) as Record<string, unknown>
+    oldValue = langBlock[fieldPath]
     newContent[lang] = { ...langBlock, [fieldPath]: value }
   } else {
     // Direct field: update newContent[fieldPath]
+    oldValue = newContent[fieldPath]
     newContent[fieldPath] = value
   }
 
@@ -87,7 +92,31 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to update content' }, { status: 500 })
   }
 
+  // Log the change — non-blocking: a failure here must not break the edit response
+  supabase
+    .from('content_changes')
+    .insert({
+      user_id: user.id,
+      section_key: sectionKey,
+      field_path: fieldPath,
+      lang: lang !== '' ? lang : null,
+      old_value: oldValue !== undefined ? String(oldValue) : null,
+      new_value: String(value),
+    })
+    .then(({ error }) => {
+      if (error) console.warn('[PUT /api/inline-edit] Change log insert failed:', error.message)
+    })
+
   revalidatePath('/')
+
+  // Emit plugin hook — errors in plugins are caught internally and never
+  // propagate here, so the response to the user is always unaffected.
+  await pluginRegistry.emit('onContentSaved', {
+    moduleId: sectionKey,
+    fieldPath,
+    lang: lang !== '' ? lang : undefined,
+    newValue: value,
+  })
 
   return NextResponse.json({ success: true })
 }

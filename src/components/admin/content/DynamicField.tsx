@@ -20,7 +20,9 @@ const textareaBase =
   'flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y'
 
 export function DynamicField({ field, value, onChange }: DynamicFieldProps) {
-  const label = resolveLabel(field.label)
+  const label =
+    resolveLabel(field.label) ||
+    field.key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
   const strValue =
     typeof value === 'string' ? value : value !== null && value !== undefined ? String(value) : ''
   const numValue = typeof value === 'number' ? value : parseFloat(strValue) || 0

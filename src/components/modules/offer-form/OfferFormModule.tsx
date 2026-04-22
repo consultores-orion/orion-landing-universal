@@ -89,7 +89,11 @@ export default function OfferFormModule({
   if (submitStatus === 'success') {
     return (
       <ModuleWrapper moduleId={moduleId} sectionKey="offer_form" styles={styles}>
-        <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+        <div
+          role="status"
+          aria-live="polite"
+          className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+        >
           <div
             className="flex h-16 w-16 items-center justify-center rounded-full"
             style={{ backgroundColor: 'var(--color-primary)', opacity: 0.1 }}
@@ -135,7 +139,7 @@ export default function OfferFormModule({
             const fieldError = errors[field.key]?.message as string | undefined
 
             const inputClass =
-              'w-full rounded-[var(--border-radius,0.375rem)] border px-4 py-2.5 text-sm transition-colors outline-none focus:ring-2'
+              'w-full rounded-[var(--border-radius,0.375rem)] border px-4 py-2.5 text-sm transition-colors outline-none focus-visible:ring-2'
 
             const inputStyle = {
               borderColor: fieldError ? 'var(--color-destructive)' : 'var(--color-border)',

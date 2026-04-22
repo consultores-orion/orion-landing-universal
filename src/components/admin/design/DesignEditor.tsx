@@ -11,6 +11,7 @@ import { TypographyEditor } from './TypographyEditor'
 import { SpacingEditor } from './SpacingEditor'
 import { PaletteExportImport } from './PaletteExportImport'
 import { ThemeExportImport } from './ThemeExportImport'
+import { ThemePreviewPanel } from './ThemePreviewPanel'
 
 // ─────────────────────────────────────────────
 // Types
@@ -178,6 +179,9 @@ export function DesignEditor({ themeConfig, palettes }: DesignEditorProps) {
               palettes={palettes}
               activePaletteId={localTheme.palette_id}
               onSelect={handlePaletteSelect}
+            />
+            <ThemePreviewPanel
+              palette={palettes.find((p) => p.id === localTheme.palette_id) ?? null}
             />
           </div>
         )}

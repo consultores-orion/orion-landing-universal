@@ -1,7 +1,17 @@
 import type { NextConfig } from 'next'
+import bundleAnalyzer from '@next/bundle-analyzer'
+
+// @next/bundle-analyzer only works in webpack mode (next build --webpack).
+// For Turbopack builds (the default in Next.js 16), use the native analyzer:
+//   pnpm analyze:turbo       → next experimental-analyze (interactive UI at localhost:4000)
+//   pnpm analyze:turbo:out   → next experimental-analyze --output (static files in .next/diagnostics/analyze/)
+//   pnpm analyze             → ANALYZE=true next build --webpack (webpack-mode treemap, opens in browser)
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 // Content Security Policy directive list.
-// unsafe-inline and unsafe-eval are required for Next.js 15 (inline scripts/styles and hydration).
+// unsafe-inline and unsafe-eval are required for Next.js 16 (inline scripts/styles and hydration).
 // When Next.js adds nonce support, these should be replaced with nonces.
 const cspDirectives = [
   "default-src 'self'",
@@ -24,7 +34,17 @@ const nextConfig: NextConfig = {
         hostname: '*.supabase.co',
         pathname: '/storage/v1/object/public/**',
       },
+      // Admin-managed images can come from any HTTPS host (gallery, team, logos, etc.)
+      // This is correct for a single-tenant CMS where the site owner controls all content.
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
     ],
+    // Allow SVG images from remote sources (e.g. placehold.co returns SVG).
+    // The sandbox CSP prevents any embedded scripts from executing.
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   async headers() {
     return [
@@ -53,4 +73,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

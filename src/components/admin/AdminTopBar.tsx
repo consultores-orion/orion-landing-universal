@@ -42,8 +42,13 @@ export function AdminTopBar({ user, onToggleSidebar }: AdminTopBarProps) {
     <header className="bg-background fixed top-0 right-0 left-0 z-50 flex h-16 items-center justify-between border-b px-4">
       {/* Left section */}
       <div className="flex items-center">
-        <Button variant="ghost" size="icon" onClick={onToggleSidebar}>
-          <Menu />
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onToggleSidebar}
+          aria-label="Abrir o cerrar menú lateral"
+        >
+          <Menu aria-hidden="true" />
         </Button>
         <span className="ml-2 text-lg font-semibold">Admin Panel</span>
       </div>

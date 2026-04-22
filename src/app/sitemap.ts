@@ -6,29 +6,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const baseUrl = process.env['NEXT_PUBLIC_SITE_URL']?.replace(/\/$/, '') ?? 'https://example.com'
 
+  // All modules are sections (#) on a single page — fragment URLs are ignored
+  // by search engine crawlers per RFC 3986, so we only emit the base URL.
+  // Use the most recent module update as lastModified for freshness signaling.
   const { data: modules } = await supabase
     .from('page_modules')
-    .select('section_key, updated_at')
+    .select('updated_at')
     .eq('is_visible', true)
-    .order('display_order')
+    .order('updated_at', { ascending: false })
+    .limit(1)
 
-  const routes: MetadataRoute.Sitemap = [
+  const lastModified = modules?.[0]?.updated_at ? new Date(modules[0].updated_at) : new Date()
+
+  return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 1,
     },
   ]
-
-  for (const mod of modules ?? []) {
-    routes.push({
-      url: `${baseUrl}#${mod.section_key}`,
-      lastModified: mod.updated_at ? new Date(mod.updated_at) : new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    })
-  }
-
-  return routes
 }

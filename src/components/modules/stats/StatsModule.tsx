@@ -19,6 +19,15 @@ function AnimatedCounter({ end, duration = 2000 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
+    // Skip animation if user prefers reduced motion.
+    // setState is needed here because matchMedia requires a browser context;
+    // hydration stays consistent because initial render is always 0.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCount(end)
+      return
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting && !hasStarted) {
@@ -31,7 +40,7 @@ function AnimatedCounter({ end, duration = 2000 }: AnimatedCounterProps) {
     const el = ref.current
     if (el) observer.observe(el)
     return () => observer.disconnect()
-  }, [hasStarted])
+  }, [hasStarted, end])
 
   useEffect(() => {
     if (!hasStarted) return

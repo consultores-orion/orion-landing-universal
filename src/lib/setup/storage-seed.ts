@@ -17,6 +17,21 @@ interface BucketDefinition {
 
 const BUCKETS: BucketDefinition[] = [
   {
+    id: 'media',
+    options: {
+      public: true,
+      fileSizeLimit: 5 * 1024 * 1024, // 5MB
+      allowedMimeTypes: [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/svg+xml',
+        'image/gif',
+        'image/x-icon',
+      ],
+    },
+  },
+  {
     id: 'page_images',
     options: {
       public: true,

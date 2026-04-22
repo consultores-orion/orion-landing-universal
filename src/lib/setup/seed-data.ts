@@ -604,6 +604,7 @@ export const SEED_INTEGRATIONS: SeedIntegration[] = [
 
 export interface SeedPageModule {
   section_key: string
+  display_name?: Record<string, string>
   content: Record<string, unknown>
   styles: Record<string, unknown>
   display_order: number
@@ -621,6 +622,7 @@ export interface SeedModuleSchema {
 export const SEED_PAGE_MODULES: SeedPageModule[] = [
   {
     section_key: 'hero',
+    display_name: { es: 'Inicio', en: 'Home' },
     content: {
       title: {
         es: 'Transforma tu negocio con soluciones inteligentes',
@@ -649,6 +651,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'value_prop',
+    display_name: { es: 'Beneficios', en: 'Benefits' },
     content: {
       title: { es: '¿Por qué elegirnos?', en: 'Why choose us?' },
       items: [
@@ -683,6 +686,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'how_it_works',
+    display_name: { es: 'Cómo Funciona', en: 'How It Works' },
     content: {
       title: { es: '¿Cómo funciona?', en: 'How it works?' },
       steps: [
@@ -717,6 +721,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'social_proof',
+    display_name: { es: 'Testimonios', en: 'Testimonials' },
     content: {
       title: { es: 'Lo que dicen nuestros clientes', en: 'What our customers say' },
       testimonials: [
@@ -759,6 +764,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'client_logos',
+    display_name: { es: 'Clientes', en: 'Clients' },
     content: {
       title: { es: 'Empresas que confían en nosotros', en: 'Companies that trust us' },
       logos: [
@@ -803,6 +809,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'offer_form',
+    display_name: { es: 'Contacto', en: 'Contact' },
     content: {
       title: { es: 'Contáctanos hoy', en: 'Contact us today' },
       subtitle: {
@@ -853,6 +860,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'faq',
+    display_name: { es: 'Preguntas Frecuentes', en: 'FAQ' },
     content: {
       title: { es: 'Preguntas frecuentes', en: 'Frequently Asked Questions' },
       items: [
@@ -906,6 +914,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'final_cta',
+    display_name: { es: 'Empezar', en: 'Get Started' },
     content: {
       title: { es: '¿Listo para empezar?', en: 'Ready to get started?' },
       subtitle: {
@@ -926,6 +935,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'footer',
+    display_name: { es: 'Pie de Página', en: 'Footer' },
     content: {
       columns: [
         {
@@ -961,6 +971,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'stats',
+    display_name: { es: 'Estadísticas', en: 'Statistics' },
     content: {
       title: { es: 'Nuestros números hablan', en: 'Our numbers speak' },
       items: [
@@ -1002,6 +1013,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'pricing',
+    display_name: { es: 'Precios', en: 'Pricing' },
     content: {
       title: { es: 'Planes que se adaptan a ti', en: 'Plans that adapt to you' },
       subtitle: {
@@ -1142,6 +1154,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'video',
+    display_name: { es: 'Video', en: 'Video' },
     content: {
       title: { es: 'Míranos en acción', en: 'Watch us in action' },
       subtitle: {
@@ -1162,6 +1175,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'team',
+    display_name: { es: 'Equipo', en: 'Team' },
     content: {
       title: { es: 'Conoce a nuestro equipo', en: 'Meet our team' },
       subtitle: {
@@ -1224,6 +1238,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'gallery',
+    display_name: { es: 'Galería', en: 'Gallery' },
     content: {
       title: { es: 'Nuestra galería', en: 'Our Gallery' },
       subtitle: {
@@ -1285,6 +1300,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'features_grid',
+    display_name: { es: 'Características', en: 'Features' },
     content: {
       title: { es: 'Todo lo que necesitas', en: 'Everything you need' },
       subtitle: {
@@ -1357,6 +1373,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'countdown',
+    display_name: { es: 'Cuenta Regresiva', en: 'Countdown' },
     content: {
       title: { es: '¡La oferta termina pronto!', en: 'The offer ends soon!' },
       subtitle: {
@@ -1391,6 +1408,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'comparison',
+    display_name: { es: 'Comparación', en: 'Comparison' },
     content: {
       title: { es: 'Compara nuestros planes', en: 'Compare our plans' },
       subtitle: {
@@ -1475,6 +1493,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'newsletter',
+    display_name: { es: 'Boletín', en: 'Newsletter' },
     content: {
       title: { es: 'Mantente al día', en: 'Stay up to date' },
       subtitle: {
@@ -1505,6 +1524,7 @@ export const SEED_PAGE_MODULES: SeedPageModule[] = [
   },
   {
     section_key: 'map_location',
+    display_name: { es: 'Ubicación', en: 'Location' },
     content: {
       title: { es: 'Encuéntranos', en: 'Find us' },
       address: {

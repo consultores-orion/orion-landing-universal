@@ -1,0 +1,33 @@
+{
+  "name": "create-orion-module",
+  "version": "0.1.0",
+  "description": "Scaffold a new module for Orion Landing Universal",
+  "keywords": [
+    "orion",
+    "landing",
+    "module",
+    "scaffold",
+    "nextjs"
+  ],
+  "author": "Luis Enrique Gutiérrez Campos — Orion AI Society",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orion-ai-society/orion-landing-universal.git",
+    "directory": "packages/create-orion-module"
+  },
+  "homepage": "https://github.com/orion-ai-society/orion-landing-universal#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "create-orion-module": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

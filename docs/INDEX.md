@@ -1,6 +1,6 @@
 # Orion Landing Universal — Documentaci&oacute;n
 
-> **Versi&oacute;n**: 0.1.0 &nbsp;|&nbsp; **Fecha**: 2026-04-04 &nbsp;|&nbsp; **Estado**: Fase 0 — Documentaci&oacute;n y Arquitectura
+> **Versi&oacute;n**: 0.1.0 &nbsp;|&nbsp; **Fecha**: 2026-04-05 &nbsp;|&nbsp; **Estado**: Completado — Listo para producci&oacute;n (Fases 0-7)
 
 Plantilla de landing page open-source, auto-hospedada, con panel de administraci&oacute;n completo y backend Supabase. Configurable al 100% desde el navegador, sin modificar c&oacute;digo.
 
@@ -22,7 +22,7 @@ Plantilla de landing page open-source, auto-hospedada, con panel de administraci
 
 | Documento                                        | Descripci&oacute;n                                                                      |
 | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| [ARCHITECTURE](architecture/ARCHITECTURE.md)     | Visi&oacute;n general del sistema — capas, flujos de datos, estructura Next.js 15       |
+| [ARCHITECTURE](architecture/ARCHITECTURE.md)     | Visi&oacute;n general del sistema — capas, flujos de datos, estructura Next.js 16       |
 | [DATA-MODEL](architecture/DATA-MODEL.md)         | Modelo de datos completo — 10 tablas, SQL, RLS, &iacute;ndices, ejemplos JSONB          |
 | [SECURITY-MODEL](architecture/SECURITY-MODEL.md) | Modelo de seguridad — autenticaci&oacute;n, RLS, middleware, validaci&oacute;n, headers |
 
@@ -49,6 +49,21 @@ Plantilla de landing page open-source, auto-hospedada, con panel de administraci
 | [THEME-SYSTEM](specs/THEME-SYSTEM.md)   | Sistema de temas — paletas, CSS variables, Tailwind 4, marketplace-ready                   |
 | [INTEGRATIONS](specs/INTEGRATIONS.md)   | Integraciones — Analytics, Meta Pixel, WhatsApp, Calendly, SMTP, scripts                   |
 
+### Guías de Extensión y Calidad
+
+| Documento                                                | Descripción                                                                                         |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [CUSTOM-MODULE](guides/CUSTOM-MODULE.md)                 | Guía paso a paso para crear un módulo personalizado — schema, componente, seed, registry, SQL       |
+| [CUSTOM-THEME](guides/CUSTOM-THEME.md)                   | Guía para crear temas personalizados — CSS variables, paletas, export/import, marketplace           |
+| [SCREEN-READER-TESTING](guides/SCREEN-READER-TESTING.md) | Guía de pruebas con lector de pantalla — VoiceOver, NVDA, 12 casos de prueba WCAG 2.1 AA            |
+| [CORE-WEB-VITALS](guides/CORE-WEB-VITALS.md)             | Guía de medición y optimización LCP/INP/CLS — checkpoints por componente, audit real, CI thresholds |
+
+### API Interna
+
+| Documento                           | Descripción                                                                                       |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [INTERNAL-API](api/INTERNAL-API.md) | Referencia completa de todos los API Routes — autenticación, endpoints, body, respuestas, errores |
+
 ### Guías de Deploy
 
 | Documento                    | Descripción                                                                        |
@@ -68,13 +83,23 @@ Plantilla de landing page open-source, auto-hospedada, con panel de administraci
 | [CONTRIBUTING](governance/CONTRIBUTING.md)       | Gu&iacute;a de contribuci&oacute;n — setup, workflow, crear m&oacute;dulos, templates          |
 | [CODE-OF-CONDUCT](governance/CODE-OF-CONDUCT.md) | C&oacute;digo de conducta — basado en Contributor Covenant 2.1                                 |
 
+### Community
+
+| Document                                                  | Description                                                    |
+| --------------------------------------------------------- | -------------------------------------------------------------- |
+| [SHOWCASE](community/SHOWCASE.md)                         | Sites built with Orion Landing — how to submit your site       |
+| [CONTRIBUTOR-PROGRAM](community/CONTRIBUTOR-PROGRAM.md)   | Contributor recognition tiers, benefits, and how to get listed |
+| [CONTRIBUTORS](community/CONTRIBUTORS.md)                 | List of contributors by tier                                   |
+| [THEME-GALLERY](community/THEME-GALLERY.md)               | Community-contributed themes — how to submit and install       |
+| [MODULE-TEMPLATE-REPO](community/MODULE-TEMPLATE-REPO.md) | How to create and publish a shareable module repository        |
+
 ---
 
 ## Stack Tecnol&oacute;gico
 
 | Capa           | Tecnolog&iacute;a                      | Versi&oacute;n |
 | -------------- | -------------------------------------- | -------------- |
-| Framework      | Next.js (App Router)                   | 15.x           |
+| Framework      | Next.js (App Router)                   | 16.x           |
 | Lenguaje       | TypeScript (strict)                    | 5.x            |
 | Estilos        | Tailwind CSS                           | 4.x            |
 | UI Admin       | shadcn/ui + Radix UI                   | latest         |
@@ -118,14 +143,14 @@ orion-landing-universal/
 
 ## Estado Actual
 
-- [x] **Fase 0**: Documentaci&oacute;n y Arquitectura (completa)
-- [ ] **Fase 1**: Foundation
-- [ ] **Fase 2**: Setup Wizard
-- [ ] **Fase 3**: Public Landing
-- [ ] **Fase 4**: Admin Panel
-- [ ] **Fase 5**: Live Editing
-- [ ] **Fase 6**: Polish y Producci&oacute;n
-- [ ] **Fase 7**: Marketplace y Comunidad
+- [x] **Fase 0**: Documentaci&oacute;n y Arquitectura
+- [x] **Fase 1**: Foundation
+- [x] **Fase 2**: Setup Wizard
+- [x] **Fase 3**: Public Landing (19 m&oacute;dulos)
+- [x] **Fase 4**: Admin Panel (10 secciones)
+- [x] **Fase 5**: Live Editing
+- [x] **Fase 6**: Polish y Producci&oacute;n
+- [x] **Fase 7**: Marketplace y Comunidad
 
 ---
 

@@ -58,8 +58,9 @@ export default function PricingModule({
           type="button"
           role="switch"
           aria-checked={isAnnual}
+          aria-label="Cambiar entre facturación mensual y anual"
           onClick={() => setIsAnnual((prev) => !prev)}
-          className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+          className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           style={{
             backgroundColor: isAnnual ? 'var(--color-primary)' : 'var(--color-border)',
           }}
@@ -182,7 +183,7 @@ function PricingCard({ plan, isAnnual, t }: PricingCardProps) {
       <div className="mt-auto">
         <a
           href={plan.cta_url || '#'}
-          className="block w-full rounded-lg py-3 text-center font-semibold transition-opacity hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+          className="block w-full rounded-lg py-3 text-center font-semibold transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           style={
             plan.is_highlighted
               ? {

@@ -181,32 +181,28 @@ import type { ModuleRegistryEntry, ModuleProps } from './types'
 const moduleRegistry: Record<string, ModuleRegistryEntry> = {
   hero: {
     key: 'hero',
-    name: 'Hero',
+    displayName: 'Hero',
     description: 'Seccion principal con titulo, subtitulo, imagen y CTA',
     component: dynamic(() => import('@/components/modules/hero'), { ssr: true }),
-    schema: () => import('@/components/modules/hero/hero.schema').then((m) => m.heroSchema),
-    seed: () => import('@/components/modules/hero/hero.seed').then((m) => m.heroSeed),
-    icon: 'LayoutDashboard',
     category: 'header',
     isSystem: true,
     defaultOrder: 1,
   },
   value_prop: {
     key: 'value_prop',
-    name: 'Propuesta de Valor',
+    displayName: 'Propuesta de Valor',
     description: 'Destaca los beneficios principales del producto o servicio',
     component: dynamic(() => import('@/components/modules/value-prop'), { ssr: true }),
-    schema: () =>
-      import('@/components/modules/value-prop/value-prop.schema').then((m) => m.valuePropSchema),
-    seed: () =>
-      import('@/components/modules/value-prop/value-prop.seed').then((m) => m.valuePropSeed),
-    icon: 'Star',
     category: 'content',
     isSystem: false,
     defaultOrder: 2,
   },
   // ... (los demas 17 modulos siguen el mismo patron — TODOS con dynamic + ssr: true)
 }
+
+// NOTA: Los schemas y seeds NO viven en el registry. Cada modulo los define
+// en su propia carpeta: hero.schema.ts, hero.seed.ts, etc.
+// Ver seccion "Estructura de Archivos por Modulo" para mas detalle.
 
 export function getModule(key: string): ModuleRegistryEntry | undefined {
   return moduleRegistry[key]
@@ -434,8 +430,8 @@ export interface ModuleRegistryEntry {
   /** Clave unica del modulo (coincide con section_key en BD) */
   key: string
 
-  /** Nombre legible */
-  name: string
+  /** Nombre legible para mostrar en el admin */
+  displayName: string
 
   /** Descripcion breve */
   description: string
@@ -444,19 +440,10 @@ export interface ModuleRegistryEntry {
    * Componente React cargado via next/dynamic con ssr: true.
    * OBLIGATORIO: usar dynamic() de 'next/dynamic', NO React.lazy().
    */
-  component: ComponentType<ModuleProps<any>>
-
-  /** Loader del esquema (lazy) */
-  schema: () => Promise<ModuleSchema>
-
-  /** Loader del seed (lazy) */
-  seed: () => Promise<ModuleSeed>
-
-  /** Nombre del icono de Lucide */
-  icon: string
+  component: ComponentType<ModuleProps<Record<string, unknown>>>
 
   /** Categoria del modulo */
-  category: 'header' | 'content' | 'social' | 'conversion' | 'info' | 'footer'
+  category: ModuleCategory // 'header' | 'content' | 'social' | 'conversion' | 'info' | 'footer'
 
   /** Si true, no se puede eliminar (pero si desactivar) */
   isSystem: boolean
@@ -464,6 +451,12 @@ export interface ModuleRegistryEntry {
   /** Orden por defecto al crear una nueva instalacion */
   defaultOrder: number
 }
+
+// NOTA: schema y seed NO son parte del registry. Cada modulo los define
+// en archivos separados dentro de su carpeta:
+//   - components/modules/{name}/{name}.schema.ts  (ModuleSchemaDef)
+//   - components/modules/{name}/{name}.seed.ts    (ModuleSeed)
+// Esto mantiene el registry liviano y permite lazy loading independiente.
 ```
 
 ### 3.2 Contrato del Componente de Modulo
@@ -544,6 +537,30 @@ const HeroModule: FC<ModuleProps<HeroContent>> = ({
 };
 
 export default HeroModule;
+```
+
+### 3.3 Server vs Client Component Boundaries
+
+> **Nota S17**: Patrones establecidos durante la integracion y auditoria de modulos.
+
+Los modulos siguen la regla de Next.js: **Server Components por defecto**, `'use client'` solo cuando es necesario (estado, hooks, browser APIs).
+
+**Regla critica para props entre Server → Client Components:**
+
+- **NUNCA** pasar componentes React (funciones) como props de Server a Client Components
+- Para iconos: usar string keys con un `iconMap` interno en el Client Component
+- Para links con estilo de boton: usar `<Link className={buttonVariants(...)}>` en lugar de `<Button render={<Link>}>`
+- **`buttonVariants()` NO se puede usar en Server Components** porque `button.tsx` tiene `'use client'`. Usar clases Tailwind inline equivalentes para links con estilo de botón en Server Components.
+
+Ejemplo de patron correcto para iconos:
+
+```tsx
+// Server Component
+;<StatsCard icon="users" title="Total" value={42} />
+
+// Client Component (StatsCard)
+const iconMap: Record<string, LucideIcon> = { users: Users, puzzle: Puzzle }
+const Icon = iconMap[icon] ?? Minus
 ```
 
 ---
@@ -2649,17 +2666,18 @@ export type { MiModuloContent } from './mi-modulo.types'
 ```typescript
 mi_modulo: {
   key: 'mi_modulo',
-  name: 'Mi Modulo',
+  displayName: 'Mi Modulo',
   description: 'Descripcion de lo que hace el modulo',
-  component: lazy(() => import('@/components/modules/mi-modulo')),
-  schema: () => import('@/components/modules/mi-modulo/mi-modulo.schema').then(m => m.miModuloSchema),
-  seed: () => import('@/components/modules/mi-modulo/mi-modulo.seed').then(m => m.miModuloSeed),
-  icon: 'Box',
+  component: dynamic(() => import('@/components/modules/mi-modulo'), { ssr: true }),
   category: 'content',
   isSystem: false,
   defaultOrder: 20,
 },
 ```
+
+> **Nota**: Los schemas y seeds NO se registran en el registry. Se definen en archivos
+> separados (`mi-modulo.schema.ts`, `mi-modulo.seed.ts`) dentro de la carpeta del modulo
+> y se insertan en la base de datos via el wizard o manualmente (ver Paso 8).
 
 #### Paso 8: Insertar Schema y Seed en la Base de Datos
 

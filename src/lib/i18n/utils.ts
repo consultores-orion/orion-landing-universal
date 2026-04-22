@@ -11,7 +11,14 @@ export function getContentForLang(
 ): string {
   if (!content) return ''
   if (typeof content === 'string') return content
-  return content[lang] ?? content[defaultLang] ?? Object.values(content)[0] ?? ''
+  return (
+    content[lang] ??
+    content[defaultLang] ??
+    content['es'] ??
+    content['en'] ??
+    Object.values(content)[0] ??
+    ''
+  )
 }
 
 /**

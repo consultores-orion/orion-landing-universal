@@ -6,6 +6,8 @@ import { SiteHeader } from '@/components/shared/SiteHeader'
 import { getPaletteColors } from '@/lib/themes/palettes'
 import type { ThemeConfig, PaletteColors } from '@/lib/themes/types'
 import { EditModeToggle } from '@/components/live-edit/EditModeToggle'
+import { HtmlLangUpdater } from '@/components/shared/HtmlLangUpdater'
+import { WebVitalsReporter } from '@/components/shared/WebVitalsReporter'
 
 const DEFAULT_THEME_CONFIG: ThemeConfig = {
   id: 'default',
@@ -38,8 +40,9 @@ export default async function PublicLayout({ children }: { children: ReactNode }
     supabase.from('site_config').select('site_name, logo_url, setup_completed').single(),
     supabase
       .from('page_modules')
-      .select('section_key, display_name, is_visible')
-      .eq('is_visible', true),
+      .select('section_key, display_name, is_visible, display_order')
+      .eq('is_visible', true)
+      .order('display_order', { ascending: true }),
     supabase.auth.getUser(),
   ])
 
@@ -100,14 +103,15 @@ export default async function PublicLayout({ children }: { children: ReactNode }
   return (
     <ThemeProvider themeConfig={themeConfig} paletteColors={paletteColors}>
       <I18nProvider languages={languages} defaultLang={defaultLang}>
+        <HtmlLangUpdater />
         <SiteHeader
           siteName={siteConfig?.site_name ?? 'Orion Landing'}
           logoUrl={siteConfig?.logo_url ?? null}
           modules={modules}
-          currentLang={defaultLang}
         />
         {children}
         <EditModeToggle isAdmin={!!user} />
+        <WebVitalsReporter />
       </I18nProvider>
     </ThemeProvider>
   )

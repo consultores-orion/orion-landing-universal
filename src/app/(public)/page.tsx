@@ -1,13 +1,24 @@
-import { Suspense } from 'react'
+import { Fragment, Suspense } from 'react'
 import type { Metadata } from 'next'
 import { createServerClient } from '@/lib/supabase/server'
 import { getModuleDefinition } from '@/lib/modules/registry'
 import { ModuleErrorBoundary } from '@/components/shared/ModuleErrorBoundary'
-import { SortablePageWrapper } from '@/components/live-edit/SortablePageWrapper'
-import { SortableModuleItem } from '@/components/live-edit/SortableModuleItem'
+import dynamic from 'next/dynamic'
 import { ScrollToTop } from '@/components/shared/ScrollToTop'
 import type { SortableModule } from '@/components/live-edit/SortablePageWrapper'
 import type { PageModule } from '@/lib/modules/types'
+
+// Lazy-load live-editing infrastructure — @dnd-kit (~40KB) only downloads for admin visitors
+const SortablePageWrapper = dynamic(() =>
+  import('@/components/live-edit/SortablePageWrapper').then((m) => ({
+    default: m.SortablePageWrapper,
+  })),
+)
+const SortableModuleItem = dynamic(() =>
+  import('@/components/live-edit/SortableModuleItem').then((m) => ({
+    default: m.SortableModuleItem,
+  })),
+)
 
 export async function generateMetadata(): Promise<Metadata> {
   const supabase = await createServerClient()
@@ -116,47 +127,73 @@ export default async function HomePage() {
       is_visible: m.is_visible,
     }))
 
+  // Hero LCP optimization: preload the background image if one is set.
+  // CSS background-image is not auto-preloaded by the browser; this link tag
+  // gets hoisted to <head> by React 18, telling the browser to fetch the image
+  // early and significantly reducing LCP when the hero has a background image.
+  const heroModule = visibleModules.find((m) => m.section_key === 'hero')
+  const heroStyleBg = (heroModule?.styles as { backgroundImage?: string } | null)?.backgroundImage
+  const heroContentBg = (heroModule?.content as { backgroundImage?: { url?: string } } | null)
+    ?.backgroundImage?.url
+  const heroBgUrl = heroStyleBg || heroContentBg || null
+
+  // Render modules — wrap with editing infrastructure only for admin visitors
+  const renderedModules = visibleModules.map((module) => {
+    const definition = getModuleDefinition(module.section_key)
+
+    if (!definition) {
+      console.warn(`[HomePage] Module not found in registry: "${module.section_key}"`)
+      return null
+    }
+
+    const Component = definition.component
+    const styles = (module.styles as Record<string, unknown>) ?? {}
+    const content = (module.content as Record<string, unknown>) ?? {}
+
+    const moduleContent = (
+      <ModuleErrorBoundary moduleKey={module.section_key}>
+        <Suspense fallback={<ModuleSkeleton />}>
+          <Component
+            content={content}
+            styles={styles}
+            moduleId={module.id}
+            isEditing={false}
+            language={defaultLang}
+            defaultLanguage={defaultLang}
+          />
+        </Suspense>
+      </ModuleErrorBoundary>
+    )
+
+    if (!isAdmin) {
+      return <Fragment key={module.id}>{moduleContent}</Fragment>
+    }
+
+    return (
+      <SortableModuleItem
+        key={module.id}
+        moduleId={module.id}
+        sectionKey={module.section_key}
+        isVisible={module.is_visible}
+        displayOrder={module.display_order}
+        displayName={resolveDisplayName(module.display_name, module.section_key)}
+        totalModules={visibleModules.length}
+      >
+        {moduleContent}
+      </SortableModuleItem>
+    )
+  })
+
   return (
-    <main>
-      <SortablePageWrapper modules={sortableModules} isAdmin={isAdmin}>
-        {visibleModules.map((module, index) => {
-          const definition = getModuleDefinition(module.section_key)
-
-          if (!definition) {
-            console.warn(`[HomePage] Module not found in registry: "${module.section_key}"`)
-            return null
-          }
-
-          const Component = definition.component
-          const styles = (module.styles as Record<string, unknown>) ?? {}
-          const content = (module.content as Record<string, unknown>) ?? {}
-
-          return (
-            <SortableModuleItem
-              key={module.id}
-              moduleId={module.id}
-              sectionKey={module.section_key}
-              isVisible={module.is_visible}
-              displayOrder={module.display_order}
-              displayName={resolveDisplayName(module.display_name, module.section_key)}
-              totalModules={visibleModules.length}
-            >
-              <ModuleErrorBoundary moduleKey={module.section_key}>
-                <Suspense fallback={<ModuleSkeleton />}>
-                  <Component
-                    content={content}
-                    styles={styles}
-                    moduleId={module.id}
-                    isEditing={false}
-                    language={defaultLang}
-                    defaultLanguage={defaultLang}
-                  />
-                </Suspense>
-              </ModuleErrorBoundary>
-            </SortableModuleItem>
-          )
-        })}
-      </SortablePageWrapper>
+    <main id="main-content" tabIndex={-1}>
+      {heroBgUrl && <link rel="preload" as="image" href={heroBgUrl} />}
+      {isAdmin ? (
+        <SortablePageWrapper modules={sortableModules} isAdmin={isAdmin}>
+          {renderedModules}
+        </SortablePageWrapper>
+      ) : (
+        renderedModules
+      )}
       <ScrollToTop />
     </main>
   )

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { createServerClient } from '@/lib/supabase/server'
 
@@ -82,5 +83,6 @@ export async function PUT(
     return NextResponse.json({ error: 'Failed to update content' }, { status: 500 })
   }
 
+  revalidatePath('/')
   return NextResponse.json({ success: true })
 }

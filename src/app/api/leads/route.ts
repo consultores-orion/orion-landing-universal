@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createServerClient } from '@/lib/supabase/server'
 import { rateLimit, getClientIp, rateLimitHeaders } from '@/lib/security/rate-limit'
+import { pluginRegistry } from '@/lib/plugins'
 
 // ─────────────────────────────────────────────
 // GET /api/leads — list with filters (admin only)
@@ -93,20 +94,28 @@ export async function POST(request: NextRequest) {
 
   const supabase = await createServerClient()
 
-  const { error } = await supabase.from('leads').insert({
-    email: result.data.email,
-    name: result.data.name ?? undefined,
-    phone: result.data.phone ?? undefined,
-    message: result.data.message ?? undefined,
-    source_module: result.data.source_module,
-    metadata: (result.data.metadata ?? {}) as Record<string, unknown>,
-    is_read: false,
-  })
+  const { data: newLead, error } = await supabase
+    .from('leads')
+    .insert({
+      email: result.data.email,
+      name: result.data.name ?? undefined,
+      phone: result.data.phone ?? undefined,
+      message: result.data.message ?? undefined,
+      source_module: result.data.source_module,
+      metadata: (result.data.metadata ?? {}) as Record<string, unknown>,
+      is_read: false,
+    })
+    .select()
+    .single()
 
   if (error) {
     console.error('[POST /api/leads] Supabase error:', error)
     return NextResponse.json({ error: 'Failed to save lead' }, { status: 500 })
   }
+
+  // Emit plugin hook — errors in plugins are caught internally and never
+  // propagate here, so the response to the user is always unaffected.
+  await pluginRegistry.emit('onLeadCaptured', { lead: newLead })
 
   return NextResponse.json({ success: true }, { status: 201 })
 }

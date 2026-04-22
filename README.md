@@ -1,3 +1,4 @@
+[![CI](https://github.com/orion-ai-society/orion-landing-universal/actions/workflows/ci.yml/badge.svg)](https://github.com/orion-ai-society/orion-landing-universal/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=nextdotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)
@@ -72,6 +73,7 @@ For production Docker deployment with nginx and SSL, see [docs/deploy/DOCKER.md]
 ### Option 3: Local Development
 
 **Prerequisites:**
+
 - Node.js 20+
 - pnpm 10+ (`npm install -g pnpm`)
 - A [Supabase](https://supabase.com) project (free tier works)
@@ -100,13 +102,13 @@ Visit `http://localhost:3000/setup` to run the initial configuration wizard.
 
 Copy `.env.example` to `.env.local` and fill in the values below.
 
-| Variable | Required | Description |
-|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | **Yes** | Your Supabase project URL (e.g. `https://xxxx.supabase.co`) |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Yes** | Supabase anonymous (public) key |
-| `SUPABASE_SERVICE_ROLE_KEY` | **Yes** | Supabase service role key — server-side only, never exposed to the client |
-| `DATABASE_URL` | **Yes** | PostgreSQL direct connection URL (used by the setup wizard to run DDL migrations) |
-| `NEXT_PUBLIC_SITE_URL` | **Yes** | Full URL of your deployed site (e.g. `https://your-site.vercel.app`) — used for SEO, sitemap, and redirects |
+| Variable                        | Required | Description                                                                                                 |
+| ------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | **Yes**  | Your Supabase project URL (e.g. `https://xxxx.supabase.co`)                                                 |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | **Yes**  | Supabase anonymous (public) key                                                                             |
+| `SUPABASE_SERVICE_ROLE_KEY`     | **Yes**  | Supabase service role key — server-side only, never exposed to the client                                   |
+| `DATABASE_URL`                  | **Yes**  | PostgreSQL direct connection URL (used by the setup wizard to run DDL migrations)                           |
+| `NEXT_PUBLIC_SITE_URL`          | **Yes**  | Full URL of your deployed site (e.g. `https://your-site.vercel.app`) — used for SEO, sitemap, and redirects |
 
 > **Security note:** `SUPABASE_SERVICE_ROLE_KEY` and `DATABASE_URL` must never be exposed to the browser. They are only used in server-side API routes and the setup wizard.
 
@@ -152,64 +154,75 @@ orion-landing-universal/
 
 All 19 modules can be enabled, disabled, and reordered from the admin panel.
 
-| Module | Description |
-|---|---|
-| `hero` | Main banner with headline, subheadline, and CTA button |
-| `value_prop` | Value proposition / benefits section |
-| `how_it_works` | Step-by-step process section |
-| `social_proof` | Testimonials carousel |
-| `client_logos` | Client logo marquee / ticker |
-| `offer_form` | Lead capture form |
-| `faq` | Frequently asked questions (accordion) |
-| `final_cta` | Final call-to-action section |
-| `footer` | Site footer with links and social icons |
-| `stats` | Key metrics with animated counters |
-| `pricing` | Pricing plans table (monthly/annual toggle) |
-| `video` | Embedded video (YouTube / Vimeo) |
-| `team` | Team / About us grid |
-| `gallery` | Image gallery with lightbox |
-| `features_grid` | Features grid with icons |
-| `countdown` | Countdown timer to a target date |
-| `comparison` | Comparison table |
-| `newsletter` | Email signup form |
-| `map_location` | Embedded map and address block |
+| Module          | Description                                            |
+| --------------- | ------------------------------------------------------ |
+| `hero`          | Main banner with headline, subheadline, and CTA button |
+| `value_prop`    | Value proposition / benefits section                   |
+| `how_it_works`  | Step-by-step process section                           |
+| `social_proof`  | Testimonials carousel                                  |
+| `client_logos`  | Client logo marquee / ticker                           |
+| `offer_form`    | Lead capture form                                      |
+| `faq`           | Frequently asked questions (accordion)                 |
+| `final_cta`     | Final call-to-action section                           |
+| `footer`        | Site footer with links and social icons                |
+| `stats`         | Key metrics with animated counters                     |
+| `pricing`       | Pricing plans table (monthly/annual toggle)            |
+| `video`         | Embedded video (YouTube / Vimeo)                       |
+| `team`          | Team / About us grid                                   |
+| `gallery`       | Image gallery with lightbox                            |
+| `features_grid` | Features grid with icons                               |
+| `countdown`     | Countdown timer to a target date                       |
+| `comparison`    | Comparison table                                       |
+| `newsletter`    | Email signup form                                      |
+| `map_location`  | Embedded map and address block                         |
 
 ---
 
 ## Tech Stack
 
-| Category | Technology | Version |
-|---|---|---|
-| Framework | Next.js (App Router) | 15.x |
-| Language | TypeScript (strict) | 5.x |
-| Styles | Tailwind CSS | 4.x |
-| UI Components | shadcn/ui + Radix UI | latest |
-| Backend | Supabase (PostgreSQL + Auth + Storage + RLS) | latest |
-| Client State | Zustand | 5.x |
-| Server Data | TanStack Query | 5.x |
-| Forms | React Hook Form + Zod | 7.x / 4.x |
-| Drag & Drop | @dnd-kit | 6.x |
-| Testing | Vitest + Playwright | latest |
-| Deployment | Vercel / Docker / Netlify / VPS | — |
+| Category      | Technology                                   | Version   |
+| ------------- | -------------------------------------------- | --------- |
+| Framework     | Next.js (App Router)                         | 15.x      |
+| Language      | TypeScript (strict)                          | 5.x       |
+| Styles        | Tailwind CSS                                 | 4.x       |
+| UI Components | shadcn/ui + Radix UI                         | latest    |
+| Backend       | Supabase (PostgreSQL + Auth + Storage + RLS) | latest    |
+| Client State  | Zustand                                      | 5.x       |
+| Server Data   | TanStack Query                               | 5.x       |
+| Forms         | React Hook Form + Zod                        | 7.x / 4.x |
+| Drag & Drop   | @dnd-kit                                     | 6.x       |
+| Testing       | Vitest + Playwright                          | latest    |
+| Deployment    | Vercel / Docker / Netlify / VPS              | —         |
 
 ---
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start development server with Turbopack |
-| `pnpm build` | Create production build |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm lint:fix` | Run ESLint with auto-fix |
-| `pnpm type-check` | TypeScript type checking (no emit) |
-| `pnpm format` | Format source files with Prettier |
-| `pnpm format:check` | Check formatting without modifying files |
-| `pnpm db:types` | Generate TypeScript types from Supabase schema |
-| `pnpm test:run` | Run Vitest unit tests once |
-| `pnpm test:coverage` | Run tests with coverage report |
-| `pnpm test:e2e` | Run Playwright end-to-end tests |
+| Command                | Description                                    |
+| ---------------------- | ---------------------------------------------- |
+| `pnpm dev`             | Start development server with Turbopack        |
+| `pnpm build`           | Create production build                        |
+| `pnpm start`           | Start production server                        |
+| `pnpm lint`            | Run ESLint                                     |
+| `pnpm lint:fix`        | Run ESLint with auto-fix                       |
+| `pnpm type-check`      | TypeScript type checking (no emit)             |
+| `pnpm format`          | Format source files with Prettier              |
+| `pnpm format:check`    | Check formatting without modifying files       |
+| `pnpm db:types`        | Generate TypeScript types from Supabase schema |
+| `pnpm test:run`        | Run Vitest unit tests once                     |
+| `pnpm test:coverage`   | Run tests with coverage report                 |
+| `pnpm test:e2e`        | Run Playwright end-to-end tests                |
+| `pnpm scaffold:module` | Scaffold a new module (interactive CLI)        |
+
+### Module scaffold CLI
+
+The scaffold CLI is also available as a standalone npm package — no local installation required:
+
+```bash
+npx create-orion-module
+```
+
+Run it from the root of your project. It will prompt for the module name, display name, description, and category, then generate all 5 required files under `src/components/modules/{name}/`.
 
 ---
 
@@ -217,18 +230,18 @@ All 19 modules can be enabled, disabled, and reordered from the admin panel.
 
 Full documentation is in the [`docs/`](docs/) directory.
 
-| Document | Description |
-|---|---|
-| [docs/INDEX.md](docs/INDEX.md) | Master documentation index |
-| [docs/prd/PRD.md](docs/prd/PRD.md) | Product Requirements Document |
-| [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) | System architecture overview |
-| [docs/architecture/DATA-MODEL.md](docs/architecture/DATA-MODEL.md) | Database schema and RLS policies |
-| [docs/specs/MODULE-SYSTEM.md](docs/specs/MODULE-SYSTEM.md) | Module system specification |
-| [docs/specs/ADMIN-PANEL.md](docs/specs/ADMIN-PANEL.md) | Admin panel specification |
-| [docs/deploy/VERCEL.md](docs/deploy/VERCEL.md) | Vercel deployment guide |
-| [docs/deploy/DOCKER.md](docs/deploy/DOCKER.md) | Docker deployment guide |
-| [docs/deploy/NETLIFY.md](docs/deploy/NETLIFY.md) | Netlify deployment guide |
-| [docs/deploy/VPS.md](docs/deploy/VPS.md) | VPS deployment guide |
+| Document                                                               | Description                      |
+| ---------------------------------------------------------------------- | -------------------------------- |
+| [docs/INDEX.md](docs/INDEX.md)                                         | Master documentation index       |
+| [docs/prd/PRD.md](docs/prd/PRD.md)                                     | Product Requirements Document    |
+| [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) | System architecture overview     |
+| [docs/architecture/DATA-MODEL.md](docs/architecture/DATA-MODEL.md)     | Database schema and RLS policies |
+| [docs/specs/MODULE-SYSTEM.md](docs/specs/MODULE-SYSTEM.md)             | Module system specification      |
+| [docs/specs/ADMIN-PANEL.md](docs/specs/ADMIN-PANEL.md)                 | Admin panel specification        |
+| [docs/deploy/VERCEL.md](docs/deploy/VERCEL.md)                         | Vercel deployment guide          |
+| [docs/deploy/DOCKER.md](docs/deploy/DOCKER.md)                         | Docker deployment guide          |
+| [docs/deploy/NETLIFY.md](docs/deploy/NETLIFY.md)                       | Netlify deployment guide         |
+| [docs/deploy/VPS.md](docs/deploy/VPS.md)                               | VPS deployment guide             |
 
 ---
 

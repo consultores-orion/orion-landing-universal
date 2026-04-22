@@ -15,7 +15,11 @@ export interface FieldDefinition {
  * The schema stores labels as `MultilingualText` objects ({ es: '...', en: '...' })
  * OR as plain strings (legacy). This helper normalises both.
  */
-export function resolveLabel(label: string | Record<string, string>, lang = 'es'): string {
+export function resolveLabel(
+  label: string | Record<string, string> | undefined,
+  lang = 'es',
+): string {
+  if (!label) return ''
   if (typeof label === 'string') return label
   return label[lang] ?? label['es'] ?? label['en'] ?? Object.values(label)[0] ?? ''
 }

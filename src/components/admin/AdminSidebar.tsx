@@ -12,6 +12,7 @@ import {
   Image,
   Plug,
   Users,
+  History,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -82,6 +83,12 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Leads',
     href: '/admin/leads',
     badgeKey: 'unreadLeadsCount',
+  },
+  {
+    icon: History,
+    label: 'Historial',
+    href: '/admin/content-history',
+    badgeKey: null,
   },
   {
     icon: Settings,

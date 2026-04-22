@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import type { ModuleProps } from '@/lib/modules/types'
 import { ModuleWrapper } from '@/components/shared/ModuleWrapper'
 import { getContentForLang } from '@/lib/i18n/utils'
@@ -76,7 +77,15 @@ function AuthorAvatar({ name, avatarUrl }: { name: string; avatarUrl?: string })
     .toUpperCase()
 
   if (avatarUrl) {
-    return <img src={avatarUrl} alt={name} className="h-12 w-12 rounded-full object-cover" />
+    return (
+      <Image
+        src={avatarUrl}
+        alt={name}
+        width={48}
+        height={48}
+        className="h-12 w-12 rounded-full object-cover"
+      />
+    )
   }
 
   return (

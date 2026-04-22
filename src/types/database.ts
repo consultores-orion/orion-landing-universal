@@ -378,6 +378,39 @@ export interface Database {
         }
         Relationships: []
       }
+      content_changes: {
+        Row: {
+          id: string
+          user_id: string | null
+          section_key: string
+          field_path: string
+          lang: string | null
+          old_value: string | null
+          new_value: string
+          changed_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          section_key: string
+          field_path: string
+          lang?: string | null
+          old_value?: string | null
+          new_value: string
+          changed_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          section_key?: string
+          field_path?: string
+          lang?: string | null
+          old_value?: string | null
+          new_value?: string
+          changed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>

@@ -49,7 +49,8 @@ function PickerItem({
     <button
       type="button"
       onClick={onSelect}
-      title={item.file_name}
+      aria-label={`Seleccionar imagen: ${item.file_name}${selected ? ' (seleccionada)' : ''}`}
+      aria-pressed={selected}
       className={[
         'relative aspect-square overflow-hidden rounded-lg border-2 transition-all',
         selected

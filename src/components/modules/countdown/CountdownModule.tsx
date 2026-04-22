@@ -23,7 +23,7 @@ function getTimeLeft(targetDate: string): TimeLeft & { isExpired: boolean } {
 }
 
 interface TimeBlockProps {
-  value: number
+  value: number | null
   label: string
 }
 
@@ -34,7 +34,7 @@ function TimeBlock({ value, label }: TimeBlockProps) {
         className="w-20 text-center text-5xl font-black tabular-nums sm:text-7xl"
         style={{ color: 'var(--color-primary)' }}
       >
-        {String(value).padStart(2, '0')}
+        {value === null ? '--' : String(value).padStart(2, '0')}
       </div>
       <div
         className="mt-2 text-sm tracking-widest uppercase"
@@ -68,13 +68,24 @@ export default function CountdownModule({
   const t = (field: Record<string, string> | string | null | undefined): string =>
     getContentForLang(field, language, defaultLanguage)
 
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(content.target_date))
+  // null on server and during hydration — populated client-side only.
+  // This prevents hydration mismatch caused by Date.now() differing between
+  // SSR render and client hydration (the countdown ticks every second).
+  const [timeLeft, setTimeLeft] = useState<(TimeLeft & { isExpired: boolean }) | null>(null)
 
   useEffect(() => {
-    if (timeLeft.isExpired) return
-    const id = setInterval(() => setTimeLeft(getTimeLeft(content.target_date)), 1000)
-    return () => clearInterval(id)
-  }, [content.target_date, timeLeft.isExpired])
+    const holder: { id: ReturnType<typeof setInterval> | null } = { id: null }
+    const tick = () => {
+      const next = getTimeLeft(content.target_date)
+      setTimeLeft(next)
+      if (next.isExpired && holder.id !== null) clearInterval(holder.id)
+    }
+    tick() // populate immediately on mount
+    holder.id = setInterval(tick, 1000)
+    return () => {
+      if (holder.id !== null) clearInterval(holder.id)
+    }
+  }, [content.target_date])
 
   const show_days = content.show_days ?? true
   const show_hours = content.show_hours ?? true
@@ -86,14 +97,16 @@ export default function CountdownModule({
   const minutesLabel = t(content.minutes_label) || (language === 'es' ? 'Minutos' : 'Minutes')
   const secondsLabel = t(content.seconds_label) || (language === 'es' ? 'Segundos' : 'Seconds')
 
-  // Build visible blocks with separators between them
-  const visibleBlocks: Array<{ value: number; label: string; key: string }> = []
-  if (show_days) visibleBlocks.push({ value: timeLeft.days, label: daysLabel, key: 'days' })
-  if (show_hours) visibleBlocks.push({ value: timeLeft.hours, label: hoursLabel, key: 'hours' })
+  // Build visible blocks — null values render '--' placeholders during SSR / pre-hydration
+  const visibleBlocks: Array<{ value: number | null; label: string; key: string }> = []
+  if (show_days)
+    visibleBlocks.push({ value: timeLeft?.days ?? null, label: daysLabel, key: 'days' })
+  if (show_hours)
+    visibleBlocks.push({ value: timeLeft?.hours ?? null, label: hoursLabel, key: 'hours' })
   if (show_minutes)
-    visibleBlocks.push({ value: timeLeft.minutes, label: minutesLabel, key: 'minutes' })
+    visibleBlocks.push({ value: timeLeft?.minutes ?? null, label: minutesLabel, key: 'minutes' })
   if (show_seconds)
-    visibleBlocks.push({ value: timeLeft.seconds, label: secondsLabel, key: 'seconds' })
+    visibleBlocks.push({ value: timeLeft?.seconds ?? null, label: secondsLabel, key: 'seconds' })
 
   return (
     <ModuleWrapper moduleId={moduleId} sectionKey="countdown" styles={styles}>
@@ -116,7 +129,7 @@ export default function CountdownModule({
         </div>
       ) : null}
 
-      {timeLeft.isExpired ? (
+      {timeLeft?.isExpired ? (
         /* Expired state */
         <div className="flex flex-col items-center gap-6 text-center">
           {content.expired_message && (
